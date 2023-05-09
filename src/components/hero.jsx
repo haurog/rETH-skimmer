@@ -9,6 +9,24 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Calculator from './calculator.jsx';
 import RETHAPY from './RETHAPY.jsx';
 
+
+
+const rocketScanRETHRatiosURL = 'https://rocketscan.io/api/mainnet/reth/ratios/';
+let rETHRatios = 0;
+
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://rocketscan.io/api/mainnet/reth')}`)
+  .then(response => {
+    if (response.ok) return response.json()
+    throw new Error('Network response was not ok.')
+  })
+  .then(data => {
+    rETHRatios = JSON.parse(data.contents).ratios;
+    console.log(rETHRatios);
+  }
+  );
+
+
 export default function Example() {
 
   return (
@@ -58,7 +76,7 @@ export default function Example() {
                     Skim your rETH rewards
                   </h1>
                   <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Calculate rETH gains relative to ETH for a given time period.
+                    text-gray-300 rETH gains relative to ETH for a given time period.
                   </p>
                   <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     The excess rETH can then be exchanged to ETH using the rocket pool deposit contract.

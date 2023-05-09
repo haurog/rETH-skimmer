@@ -24,16 +24,15 @@ export default function Calculator() {
 
 
   const handleDateRangeChange = (newValue) => {
-    console.log("newValue:", newValue);
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
       newValue.endDate = today;
     }
+    console.log("dateRange: ", newValue)
     setDateRange(newValue);
   }
 
-  console.log("dateRange: ", dateRange)
-  console.log("startOfTheMonth: ", startOfTheMonth);
-  console.log("startOfLastMonth: ", startOfLastMonth);
+  // console.log("startOfTheMonth: ", startOfTheMonth);
+  // console.log("startOfLastMonth: ", startOfLastMonth);
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">

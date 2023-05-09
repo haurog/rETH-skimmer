@@ -9,7 +9,7 @@ import { addressesToken } from '../helper/Addresses';
 import SwapAndRetireContract from "../ABI/disCarbonSwapAndRetire_0x96F2244A8094a4B1F57257e0641A94a6B13C8827.json";
 const CONTRACT_ADDRESS = "0x96F2244A8094a4B1F57257e0641A94a6B13C8827";
 
-const projectAddress = ethers.constants.AddressZero;
+const projectAddress = ethers.constants.AddressZero
 
 export default function SkimRewards(props) {
 
@@ -17,18 +17,18 @@ export default function SkimRewards(props) {
 
   // console.log("Props in offsetbutton: ", props.value)
 
-  const contractRead = useContractRead({
-    address: CONTRACT_ADDRESS,
-    abi: SwapAndRetireContract,
-    functionName: 'calculateNeededAmount',
-    args: [addressesToken.WMATIC, ethers.utils.parseEther(props.value.toFixed(18).toString()), 0, true],
-    watch: true,
-    onSuccess(data) {
-      console.log('Successful estimate of cost: ', ethers.utils.formatEther(data.toString()));
-      let tokenAmountPlusMargin = ethers.utils.formatEther(data) * 1.01;
-      setTokenAmount(tokenAmountPlusMargin);
-    },
-  })
+  // const contractRead = useContractRead({
+  //   address: CONTRACT_ADDRESS,
+  //   abi: SwapAndRetireContract,
+  //   functionName: 'calculateNeededAmount',
+  //   args: [addressesToken.WMATIC, ethers.utils.parseEther(props.value.toFixed(18).toString()), 0, true],
+  //   watch: true,
+  //   onSuccess(data) {
+  //     console.log('Successful estimate of cost: ', ethers.utils.formatEther(data.toString()));
+  //     let tokenAmountPlusMargin = ethers.utils.formatEther(data) * 1.01;
+  //     setTokenAmount(tokenAmountPlusMargin);
+  //   },
+  // })
 
   const { config } = usePrepareContractWrite({
     address: CONTRACT_ADDRESS,
