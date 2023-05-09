@@ -1,0 +1,38 @@
+{
+  "name": "lotus_carbon_retirements",
+  "version": "0.0.1",
+  "description": "",
+  "source": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html --open",
+    "build": "rm -rf dist && npx tailwindcss -i ./src/input.css -o ./dist/output.css && parcel build index.html --public-url ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@headlessui/react": "^1.7.4",
+    "@heroicons/react": "^2.0.13",
+    "@rainbow-me/rainbowkit": "^0.8.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "ethers": "^5.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-toast": "^1.0.3",
+    "react-toastify": "^9.1.1",
+    "tailwindcss": "^3.2.4",
+    "use-debounce": "^9.0.2",
+    "wagmi": "^0.9.6"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "buffer": "^5.7.1",
+    "cssnano": "^5.1.14",
+    "parcel": "^2.8.2",
+    "process": "^0.11.10",
+    "util": "^0.12.5"
+  }
+}
