@@ -1,6 +1,4 @@
 import React, { useContext, useState } from 'react';
-import ProjectSelection from './ProjectSelectBox';
-
 
 import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
 import { ethers } from 'ethers';
@@ -11,15 +9,11 @@ import { addressesToken } from '../helper/Addresses';
 import SwapAndRetireContract from "../ABI/disCarbonSwapAndRetire_0x96F2244A8094a4B1F57257e0641A94a6B13C8827.json";
 const CONTRACT_ADDRESS = "0x96F2244A8094a4B1F57257e0641A94a6B13C8827";
 
+const projectAddress = ethers.constants.AddressZero;
+
 export default function SkimRewards(props) {
 
   const [tokenAmount, setTokenAmount] = useState(0);
-  const [projectAddress, setProjectAddress] = useState(0);
-
-  const handleProjectAddressChange = event => {
-    setProjectAddress(event);
-    console.log("Project Address: ", event, projectAddress)
-  };
 
   // console.log("Props in offsetbutton: ", props.value)
 
