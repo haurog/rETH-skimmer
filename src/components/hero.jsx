@@ -12,7 +12,7 @@ import RETHAPY from './RETHAPY.jsx';
 export default function Example() {
 
   return (
-    <div className="relative overflow-hidden bg-contain bg-gradient-to-r from-emerald-300 to-fuchsia-200 min-h-screen">
+    <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
       <div className="hidden sm:absolute sm:inset-0 sm:block" aria-hidden="true">
         <svg
           className="absolute bottom-0 right-0 translate-x-1/2 transform text-emerald-700 -rotate-45 top-0 mt-[580px] lg:mt-56 lg:mb-0"
@@ -54,13 +54,13 @@ export default function Example() {
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="px-4 sm:px-6 sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:flex lg:items-center lg:text-left">
                 <div>
-                  <h1 className="mt-4 text-4xl font-bold text-gray-600 tracking-tight sm:text-5xl md:text-5xl">
+                  <h1 className="mt-4 text-4xl font-bold text-gray-100 tracking-tight sm:text-5xl md:text-5xl">
                     Skim your rETH rewards
                   </h1>
-                  <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     Calculate rETH gains relative to ETH for a given time period.
                   </p>
-                  <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     The excess rETH can then be exchanged to ETH using the rocket pool deposit contract.
                   </p>
                 </div>
