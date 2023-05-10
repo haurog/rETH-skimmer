@@ -7,27 +7,33 @@ import { Popover, Transition } from '@headlessui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import Calculator from './calculator.jsx';
-import RETHAPY from './RETHAPY.jsx';
+import RETHAPYFooter from './RETHAPYFooter.jsx';
 
 
 
-const rocketScanRETHRatiosURL = 'https://rocketscan.io/api/mainnet/reth/ratios/';
-let rETHRatios = 0;
-
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://rocketscan.io/api/mainnet/reth')}`)
-  .then(response => {
-    if (response.ok) return response.json()
-    throw new Error('Network response was not ok.')
-  })
-  .then(data => {
-    rETHRatios = JSON.parse(data.contents).ratios;
-    console.log(rETHRatios);
-  }
-  );
+const rocketScanRETHURL = 'https://rocketscan.io/api/mainnet/reth';
 
 
 export default function Example() {
+  const [rETHRatios, setRETHRatios] = useState(0);
+
+  console.log("rETHRatios state: ", rETHRatios)
+
+  if (rETHRatios == 0) {
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
+      .then(response => {
+        if (response.ok) return response.json()
+        throw new Error('Network response was not ok.')
+      })
+      .then(data => {
+        rETHRatiosVariable = JSON.parse(data.contents).ratios;
+        // console.log("rETHRatios updated: ", rETHRatiosVariable);
+        setRETHRatios(rETHRatiosVariable);
+      }
+      );
+  }
+
+
 
   return (
     <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
@@ -88,7 +94,7 @@ export default function Example() {
           </div>
         </main>
       </div>
-      <RETHAPY />
+      <RETHAPYFooter rETHRatios={rETHRatios} />
     </div>
   )
 }
