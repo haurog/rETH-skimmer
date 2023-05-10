@@ -6,10 +6,6 @@ import Datepicker from "react-tailwindcss-datepicker";
 
 export default function Calculator() {
 
-  const [size, setSize] = useState(0)  // in MB
-  const [impressions, setImpressions] = useState(0)
-  const [gridEmissionPerkWhInkg, setGridEmissionPerkWhInkg] = useState(0);
-
   const rocketPoolStartDate = new Date("2021-11-7")  // started on Nov 8th, but need to set 1 day earlier for calendar to work
   const today = new Date();
   const startOfTheMonth = new Date(today.getFullYear(), today.getMonth(), 1);
