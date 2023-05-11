@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+
+
+
+
+
 
 export default function RETHAPYFooter(props) {
 
@@ -8,28 +13,63 @@ export default function RETHAPYFooter(props) {
     let APY1Y = 0;
 
 
+    function findRETHRatioByDate(targetDate) {
+        targetDateTimestamp = targetDate.getTime() / 1000;
+        // console.log("targetDate: ", targetDateTimestamp);
+        for (i = 0; i < props.rETHRatios.length; i++) {
+            if (props.rETHRatios[i].block.timestamp < targetDateTimestamp) {
+                // console.log("Timestamp: ", props.rETHRatios[i].block.timestamp, ", i: ", i);
+                break;
+            }
+        }
+        return {
+            rate: props.rETHRatios[i].rate,
+            timestamp: props.rETHRatios[i].block.timestamp,
+            index: i
+        };
+    }
+
+    function calcRateIncrease(startRatio, endRatio) {
+        const yearInSeconds = 365*24*60*60;
+        const timeSpan = endRatio.timestamp - startRatio.timestamp;
+        const increase = yearInSeconds / timeSpan * 100 * (endRatio.rate / startRatio.rate - 1);
+        console.log("increase: ", increase)
+        return increase;
+    }
 
     function calcAPYs() {
         if (!props.rETHRatios) {
             console.log("in if: ", props.rETHRatios)
             return
         }
-        console.log("in Calc:", props.rETHRatios[0].rate)
-        APY1D = 100*365*(props.rETHRatios[0].rate/props.rETHRatios[1].rate-1);
-        console.log("APY1D: ", APY1D)
-        APY1W = 100*52*(props.rETHRatios[0].rate/props.rETHRatios[7].rate-1);
-        APY1M = 100*12*(props.rETHRatios[0].rate/props.rETHRatios[30].rate-1);
-        APY1Y = 100*(props.rETHRatios[0].rate/props.rETHRatios[365].rate-1);
+
+
+        const dateNow = new Date();
+        const date1D = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 1, dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
+        const date1W = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 7, dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
+        const date1M = new Date(dateNow.getFullYear(), dateNow.getMonth() - 1, dateNow.getDate(), dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
+        const date1Y = new Date(dateNow.getFullYear() - 1, dateNow.getMonth(), dateNow.getDate(), dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
+
+        const ratioNow = findRETHRatioByDate(dateNow);
+        const ratio1D = findRETHRatioByDate(date1D);
+        const ratio1W = findRETHRatioByDate(date1W);
+        const ratio1M = findRETHRatioByDate(date1M);
+        const ratio1Y = findRETHRatioByDate(date1Y);
+
+        APY1D = calcRateIncrease(ratio1D, ratioNow);
+        APY1W = calcRateIncrease(ratio1W, ratioNow);
+        APY1M = calcRateIncrease(ratio1M, ratioNow);
+        APY1Y = calcRateIncrease(ratio1Y, ratioNow);
     }
 
-    {calcAPYs()}
+    { calcAPYs() }
 
     return (
         <div>
             <div className="mx-auto max-w-7xl py-8 px-4 sm:py-10 sm:px-6 lg:px-8 lg:py-5">
                 <div className="mx-auto max-w-4xl text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl">
-                       APY of rETH over different time spans:
+                        APY of rETH over different time spans:
                     </h2>
                 </div>
 

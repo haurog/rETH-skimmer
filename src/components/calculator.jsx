@@ -10,7 +10,7 @@ export default function Calculator() {
   const today = new Date();
   const startOfTheMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   var tempLastMonth = new Date;  // Will be set to a date in the last month
-  tempLastMonth.setDate(startOfTheMonth.getDate() - 10);
+  tempLastMonth.setDate(startOfTheMonth.getDate() - 10);  // temporary date to be sure to be in the last month
   const startOfLastMonth = new Date(tempLastMonth.getFullYear(), tempLastMonth.getMonth(), 1);
 
   const [dateRange, setDateRange] = useState({
