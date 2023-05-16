@@ -1,9 +1,6 @@
 // import React, { useEffect, useState } from 'react';
 
-
-
-
-
+import {findRETHRatioByDate, calcRateIncrease} from '../helper/RETHCalculations'
 
 export default function RETHAPYFooter(props) {
 
@@ -12,37 +9,11 @@ export default function RETHAPYFooter(props) {
     let APY1M = 0;
     let APY1Y = 0;
 
-
-    function findRETHRatioByDate(targetDate) {
-        targetDateTimestamp = targetDate.getTime() / 1000;
-        // console.log("targetDate: ", targetDateTimestamp);
-        for (i = 0; i < props.rETHRatios.length; i++) {
-            if (props.rETHRatios[i].block.timestamp < targetDateTimestamp) {
-                // console.log("Timestamp: ", props.rETHRatios[i].block.timestamp, ", i: ", i);
-                break;
-            }
-        }
-        return {
-            rate: props.rETHRatios[i].rate,
-            timestamp: props.rETHRatios[i].block.timestamp,
-            index: i
-        };
-    }
-
-    function calcRateIncrease(startRatio, endRatio) {
-        const yearInSeconds = 365*24*60*60;
-        const timeSpan = endRatio.timestamp - startRatio.timestamp;
-        const increase = yearInSeconds / timeSpan * 100 * (endRatio.rate / startRatio.rate - 1);
-        console.log("increase: ", increase)
-        return increase;
-    }
-
     function calcAPYs() {
         if (!props.rETHRatios) {
             console.log("in if: ", props.rETHRatios)
             return
         }
-
 
         const dateNow = new Date();
         const date1D = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 1, dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
@@ -50,11 +21,11 @@ export default function RETHAPYFooter(props) {
         const date1M = new Date(dateNow.getFullYear(), dateNow.getMonth() - 1, dateNow.getDate(), dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
         const date1Y = new Date(dateNow.getFullYear() - 1, dateNow.getMonth(), dateNow.getDate(), dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
 
-        const ratioNow = findRETHRatioByDate(dateNow);
-        const ratio1D = findRETHRatioByDate(date1D);
-        const ratio1W = findRETHRatioByDate(date1W);
-        const ratio1M = findRETHRatioByDate(date1M);
-        const ratio1Y = findRETHRatioByDate(date1Y);
+        const ratioNow = findRETHRatioByDate(dateNow, props.rETHRatios);
+        const ratio1D = findRETHRatioByDate(date1D, props.rETHRatios);
+        const ratio1W = findRETHRatioByDate(date1W, props.rETHRatios);
+        const ratio1M = findRETHRatioByDate(date1M, props.rETHRatios);
+        const ratio1Y = findRETHRatioByDate(date1Y, props.rETHRatios);
 
         APY1D = calcRateIncrease(ratio1D, ratioNow);
         APY1W = calcRateIncrease(ratio1W, ratioNow);
