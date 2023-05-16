@@ -3,8 +3,11 @@ import SkimRewards from './SkimRewards';
 
 import Datepicker from "react-tailwindcss-datepicker";
 
+import {findRETHRatioByDate, calcRateIncrease} from '../helper/RETHCalculations'
 
-export default function Calculator() {
+
+
+export default function Calculator(props) {
 
   const rocketPoolStartDate = new Date("2021-11-7")  // started on Nov 8th, but need to set 1 day earlier for calendar to work
   const today = new Date();
@@ -18,17 +21,29 @@ export default function Calculator() {
     endDate: null
   });
 
+  const [rateIncrease, setrateIncrease] = useState(0);
+
+
 
   const handleDateRangeChange = (newValue) => {
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
       newValue.endDate = today;
     }
-    console.log("dateRange: ", newValue)
+    newValue.startDate = new Date(newValue.startDate)
+    newValue.endDate = new Date(newValue.endDate)
+    // console.log("dateRange: ", newValue)
     setDateRange(newValue);
+
+    let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
+    let endRatio = findRETHRatioByDate(newValue.endDate, props.rETHRatios);
+    rateIncreaseTemp = calcRateIncrease(startRatio, endRatio);
+    console.log("increase in range: ", rateIncrease);
+    setrateIncrease(rateIncreaseTemp);
   }
 
   // console.log("startOfTheMonth: ", startOfTheMonth);
   // console.log("startOfLastMonth: ", startOfLastMonth);
+  // console.log("rethRatios", props.rETHRatios);
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
@@ -54,6 +69,9 @@ export default function Calculator() {
                 value={dateRange}
                 onChange={handleDateRangeChange}
               />
+            </div>
+            <div>
+              <h2>Increase: {rateIncrease.toPrecision(3)} %</h2>
             </div>
             <div>
               <h2>rETH to skim: {0.0123} rETH</h2>

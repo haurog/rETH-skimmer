@@ -89,7 +89,7 @@ export default function Example() {
                   </p>
                 </div>
               </div>
-              <Calculator />
+              <Calculator rETHRatios={rETHRatios} />
             </div>
           </div>
         </main>
