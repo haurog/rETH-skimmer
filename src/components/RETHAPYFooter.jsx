@@ -50,7 +50,7 @@ export default function RETHAPYFooter(props) {
                         <dd className="order-1 text-5xl font-bold tracking-tight text-gray-300">{APY1D.toPrecision(3)}</dd>
                     </div>
                     <div className="mt-10 flex flex-col sm:mt-0">
-                        <dt className="order-2 mt-2 text-lg font-medium leading-6 text-gray-300">since last weeks</dt>
+                        <dt className="order-2 mt-2 text-lg font-medium leading-6 text-gray-300">since last week</dt>
                         <dd className="order-1 text-5xl font-bold tracking-tight text-gray-300">{APY1W.toPrecision(3)}</dd>
                     </div>
                     <div className="mt-10 flex flex-col sm:mt-0">
