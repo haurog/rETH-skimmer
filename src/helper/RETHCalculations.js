@@ -14,10 +14,17 @@ export function findRETHRatioByDate(targetDate, rETHRatios) {
     };
 }
 
+
 export function calcRateIncrease(startRatio, endRatio) {
-    const yearInSeconds = 365*24*60*60;
-    const timeSpan = endRatio.timestamp - startRatio.timestamp;
-    const increase = yearInSeconds / timeSpan * 100 * (endRatio.rate / startRatio.rate - 1);
+    const increase = (endRatio.rate / startRatio.rate - 1)*100;
     console.log("increase: ", increase)
     return increase;
+}
+
+export function calcEquivalentAPY(startRatio, endRatio) {
+    const yearInSeconds = 365*24*60*60;
+    const timeSpan = endRatio.timestamp - startRatio.timestamp;
+    const APY = yearInSeconds / timeSpan * 100 * (endRatio.rate / startRatio.rate - 1);
+    console.log("APY: ", increase)
+    return APY;
 }
