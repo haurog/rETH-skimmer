@@ -21,7 +21,7 @@ export default function Calculator(props) {
     endDate: null
   });
 
-  const [rateIncrease, setrateIncrease] = useState(0);
+  const [rateIncrease, setRateIncrease] = useState(0);
 
 
 
@@ -38,7 +38,7 @@ export default function Calculator(props) {
     let endRatio = findRETHRatioByDate(newValue.endDate, props.rETHRatios);
     rateIncreaseTemp = calcRateIncrease(startRatio, endRatio);
     console.log("increase in range: ", rateIncrease);
-    setrateIncrease(rateIncreaseTemp);
+    setRateIncrease(rateIncreaseTemp);
   }
 
   // console.log("startOfTheMonth: ", startOfTheMonth);
