@@ -6,10 +6,8 @@ import { ethers } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify'
 
 import { addressesToken } from '../helper/Addresses';
-import SwapAndRetireContract from "../ABI/disCarbonSwapAndRetire_0x96F2244A8094a4B1F57257e0641A94a6B13C8827.json";
-const CONTRACT_ADDRESS = "0x96F2244A8094a4B1F57257e0641A94a6B13C8827";
-
-const projectAddress = ethers.constants.AddressZero
+import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
+const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 export default function SkimRewards(props) {
 
@@ -31,10 +29,10 @@ export default function SkimRewards(props) {
   // })
 
   const { config } = usePrepareContractWrite({
-    address: CONTRACT_ADDRESS,
-    abi: SwapAndRetireContract,
-    functionName: 'retireWithMatic',
-    args: [ethers.utils.parseEther(props.value.toFixed(18).toString()), 0, projectAddress],
+    address: rETH_CONTRACT_ADDRESS,
+    abi: rETH_CONTRACT_ABI,
+    functionName: 'burn',
+    args: [ethers.utils.parseEther(props.rETHValue.toFixed(18).toString())],
     overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
   })
 

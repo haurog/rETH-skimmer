@@ -76,7 +76,7 @@ export default function Calculator(props) {
             <div>
               <h2>rETH to skim: {0.0123} rETH</h2>
             </div>
-            <SkimRewards value={0.0123} />
+            <SkimRewards rETHValue={0.0123} />
           </div>
         </div>
       </div>
