@@ -82,7 +82,7 @@ export default function Example() {
                     Skim your rETH rewards
                   </h1>
                   <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    text-gray-300 rETH gains relative to ETH for a given time period.
+                    Calculate rETH gains relative to ETH for a given time period.
                   </p>
                   <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     The excess rETH can then be exchanged to ETH using the rocket pool deposit contract.
