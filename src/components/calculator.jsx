@@ -3,7 +3,7 @@ import SkimRewards from './SkimRewards';
 
 import Datepicker from "react-tailwindcss-datepicker";
 
-import {findRETHRatioByDate, calcRateIncrease} from '../helper/RETHCalculations'
+import {findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY} from '../helper/RETHCalculations'
 
 
 
@@ -22,7 +22,7 @@ export default function Calculator(props) {
   });
 
   const [rateIncrease, setRateIncrease] = useState(0);
-
+  const [APY, setAPY] = useState(0);
 
 
   const handleDateRangeChange = (newValue) => {
@@ -44,8 +44,10 @@ export default function Calculator(props) {
     rateIncreaseTemp = calcRateIncrease(startRatio, endRatio);
     console.log("increase in range: ", rateIncrease);
     setRateIncrease(rateIncreaseTemp);
+    setAPY(calcEquivalentAPY(startRatio, endRatio));
   }
 
+  console.log("APY: ", APY)
   // console.log("startOfTheMonth: ", startOfTheMonth);
   // console.log("startOfLastMonth: ", startOfLastMonth);
   // console.log("rethRatios", props.rETHRatios);
@@ -76,7 +78,7 @@ export default function Calculator(props) {
               />
             </div>
             <div>
-              <h2>Increase: {rateIncrease.toPrecision(3)} %</h2>
+              <h2>Increase: {rateIncrease.toPrecision(3)} % (&#8781; {APY.toPrecision(3)} % APY)</h2>
             </div>
             <div>
               <h2>rETH to skim: {0.0123} rETH</h2>
