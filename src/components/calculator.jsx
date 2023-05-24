@@ -29,9 +29,14 @@ export default function Calculator(props) {
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
       newValue.endDate = today;
     }
-    newValue.startDate = new Date(newValue.startDate)
-    newValue.endDate = new Date(newValue.endDate)
-    // console.log("dateRange: ", newValue)
+
+    const currentDate = new Date();
+
+    const startDate = new Date(newValue.startDate);
+    newValue.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+    const endDate = new Date(newValue.endDate);
+    newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+    console.log("dateRange: ", newValue)
     setDateRange(newValue);
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
