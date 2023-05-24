@@ -11,7 +11,7 @@ const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 export default function SkimRewards(props) {
 
-  const [tokenAmount, setTokenAmount] = useState(0);
+  // const [tokenAmount, setTokenAmount] = useState(0);
 
   // console.log("Props in offsetbutton: ", props.value)
 
@@ -28,18 +28,28 @@ export default function SkimRewards(props) {
   //   },
   // })
 
+  // const { configApprove } = usePrepareContractWrite({
+  //   address: rETH_CONTRACT_ADDRESS,
+  //   abi: rETH_CONTRACT_ABI,
+  //   functionName: 'approve',
+  //   args: [rETH_CONTRACT_ADDRESS, ethers.utils.parseEther(props.rETHValue.toFixed(18).toString())],
+  //   // overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
+  // })
+
+  // const approveRETH = useContractWrite(configApprove)
+
   const { config } = usePrepareContractWrite({
     address: rETH_CONTRACT_ADDRESS,
     abi: rETH_CONTRACT_ABI,
     functionName: 'burn',
     args: [ethers.utils.parseEther(props.rETHValue.toFixed(18).toString())],
-    overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
+    // overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
   })
 
-  const contractWrite = useContractWrite(config)
+  const sendRETH = useContractWrite(config)
 
   const waitForTransaction = useWaitForTransaction({
-    hash: contractWrite.data?.hash,
+    hash: sendRETH.data?.hash,
     onSuccess(data) {
       console.log('Success', data)
       const CustomToastWithLink = () => (
@@ -72,11 +82,18 @@ export default function SkimRewards(props) {
 
   return (
     <div>
-      <button
-        onClick={contractWrite.write}
+      {/* <button
+        onClick={approveRETH.write}
         className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
       >
-        Skim rETH rewards {tokenAmount > 0 ? '(' + tokenAmount.toPrecision(3) + ' rETH)' : ''}
+        Approve rETH {props.rETHValue > 0 ? '(' + props.rETHValue.toPrecision(3) + ' rETH)' : ''}
+      </button> */}
+
+      <button
+        onClick={sendRETH.write}
+        className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      >
+        Skim rETH rewards {props.rETHValue > 0 ? '(' + props.rETHValue.toPrecision(3) + ' rETH)' : ''}
       </button>
     </div>
 
