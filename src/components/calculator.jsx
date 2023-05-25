@@ -3,7 +3,7 @@ import SkimRewards from './SkimRewards';
 
 import Datepicker from "react-tailwindcss-datepicker";
 
-import {findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY} from '../helper/RETHCalculations'
+import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 
 
 
@@ -23,7 +23,15 @@ export default function Calculator(props) {
 
   const [rateIncrease, setRateIncrease] = useState(0);
   const [APY, setAPY] = useState(0);
+  const [rETH, setRETH] = useState(0)  // rETH total under the users control
+  const [rETHtoSkim, setRETHToSkim] = useState(0)
 
+
+  const handleRETHChange = event => {
+    setRETH(event.target.value);
+    setRETHToSkim(calcRETHToSkim(event.target.value, rateIncrease));
+    // console.log("Size: ", event.target.value, size)
+  };
 
   const handleDateRangeChange = (newValue) => {
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
@@ -41,10 +49,15 @@ export default function Calculator(props) {
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
     let endRatio = findRETHRatioByDate(newValue.endDate, props.rETHRatios);
-    rateIncreaseTemp = calcRateIncrease(startRatio, endRatio);
-    console.log("increase in range: ", rateIncrease);
-    setRateIncrease(rateIncreaseTemp);
+    tempRateIncrease = calcRateIncrease(startRatio, endRatio);
+    setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
+    setRETHToSkim(calcRETHToSkim(rETH, tempRateIncrease));
+  }
+
+  function calcRETHToSkim(rETH, rateIncrease) { // rate increase in %
+    console.log("rETH to skim: ", rETH * rateIncrease);
+    return rETH * rateIncrease / 100;
   }
 
   console.log("APY: ", APY)
@@ -78,12 +91,26 @@ export default function Calculator(props) {
               />
             </div>
             <div>
+              <label htmlFor="size" className="sr-only">
+                File size (in mb)
+              </label>
+              <input
+                onChange={handleRETHChange}
+                type="number"
+                name="rETH"
+                id="rETH"
+                placeholder="rETH"
+                required
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              />
+            </div>
+            <div>
               <h2>Increase: {rateIncrease.toPrecision(3)} % (&#8781; {APY.toPrecision(3)} % APY)</h2>
             </div>
             <div>
-              <h2>rETH to skim: {0.0123} rETH</h2>
+              <h2>rETH to skim: {rETHtoSkim.toPrecision(3)} rETH</h2>
             </div>
-            <SkimRewards rETHValue={0.0123} />
+            <SkimRewards rETHValue={rETHtoSkim} />
           </div>
         </div>
       </div>
