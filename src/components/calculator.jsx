@@ -1,9 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { React, useState } from 'react';
+import { useAccount, useContractRead } from 'wagmi';
+import { ethers } from 'ethers';
+
 import SkimRewards from './SkimRewards';
 
 import Datepicker from "react-tailwindcss-datepicker";
 
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
+
+import { addressesToken } from '../helper/Addresses';
+import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
+const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 
 
@@ -25,6 +32,22 @@ export default function Calculator(props) {
   const [APY, setAPY] = useState(0);
   const [rETH, setRETH] = useState(0)  // rETH total under the users control
   const [rETHtoSkim, setRETHToSkim] = useState(0)
+
+  const { address, connector, isConnected } = useAccount()
+
+  const contractRead = useContractRead({
+    address: rETH_CONTRACT_ADDRESS,
+    abi: rETH_CONTRACT_ABI,
+    functionName: 'balanceOf',
+    args: [address],
+    watch: false,
+    onSuccess(data) {
+      rETHAmount = ethers.utils.formatEther(data.toString());
+      console.log('rETH amount: ', rETHAmount);
+      setRETH(rETHAmount);
+      setRETHToSkim(calcRETHToSkim(rETHAmount, rateIncrease));
+    },
+  })
 
 
   const handleRETHChange = event => {
@@ -56,7 +79,7 @@ export default function Calculator(props) {
   }
 
   function calcRETHToSkim(rETH, rateIncrease) { // rate increase in %
-    console.log("rETH to skim: ", rETH * rateIncrease);
+    console.log("rETH to skim: ", rETH * rateIncrease / 100);
     return rETH * rateIncrease / 100;
   }
 
@@ -95,6 +118,7 @@ export default function Calculator(props) {
                 File size (in mb)
               </label>
               <input
+                value={rETH}
                 onChange={handleRETHChange}
                 type="number"
                 name="rETH"

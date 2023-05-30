@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 
-import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
+import {usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
 import { ethers } from 'ethers';
 
 import { ToastContainer, toast } from 'react-toastify'
@@ -10,23 +10,6 @@ import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 export default function SkimRewards(props) {
-
-  // const [tokenAmount, setTokenAmount] = useState(0);
-
-  // console.log("Props in offsetbutton: ", props.value)
-
-  // const contractRead = useContractRead({
-  //   address: CONTRACT_ADDRESS,
-  //   abi: SwapAndRetireContract,
-  //   functionName: 'calculateNeededAmount',
-  //   args: [addressesToken.WMATIC, ethers.utils.parseEther(props.value.toFixed(18).toString()), 0, true],
-  //   watch: true,
-  //   onSuccess(data) {
-  //     console.log('Successful estimate of cost: ', ethers.utils.formatEther(data.toString()));
-  //     let tokenAmountPlusMargin = ethers.utils.formatEther(data) * 1.01;
-  //     setTokenAmount(tokenAmountPlusMargin);
-  //   },
-  // })
 
   // const { configApprove } = usePrepareContractWrite({
   //   address: rETH_CONTRACT_ADDRESS,
@@ -43,7 +26,6 @@ export default function SkimRewards(props) {
     abi: rETH_CONTRACT_ABI,
     functionName: 'burn',
     args: [ethers.utils.parseEther(props.rETHValue.toFixed(18).toString())],
-    // overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
   })
 
   const sendRETH = useContractWrite(config)
