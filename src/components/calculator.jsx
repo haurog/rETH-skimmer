@@ -72,7 +72,7 @@ export default function Calculator(props) {
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
     let endRatio = findRETHRatioByDate(newValue.endDate, props.rETHRatios);
-    tempRateIncrease = calcRateIncrease(startRatio, endRatio);
+    let tempRateIncrease = calcRateIncrease(startRatio, endRatio);
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
     setRETHToSkim(calcRETHToSkim(rETH, tempRateIncrease));
