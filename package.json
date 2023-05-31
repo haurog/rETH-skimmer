@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel index.html --open",
-    "build": "rm -rf dist && npx tailwindcss -i ./src/input.css -o ./dist/output.css && parcel build index.html --public-url ./"
+    "build": "rm -rf dist && npx tailwindcss -i ./src/input.css -o ./dist/output.css && parcel build index.html --public-url ./",
+    "predeploy": "rm -rf dist && parcel build ./*.html --public-url http://haurog.github.io/rETH-skimmer",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "buffer": "^5.7.1",
     "cssnano": "^5.1.14",
+    "gh-pages": "^5.0.0",
     "parcel": "^2.8.2",
     "process": "^0.11.10",
     "util": "^0.12.5"
