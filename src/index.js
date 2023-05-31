@@ -58,7 +58,7 @@ root.render(
     <div>
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider
-                appInfo={{ appName: 'Lotus Carbon Retirements', learnMoreUrl: 'https://learnaboutcryptowallets.example', }}
+                appInfo={{ appName: 'rETH Skimmer', learnMoreUrl: 'https://learnaboutcryptowallets.example', }}
                 theme={lightTheme({
                     overlayBlur: 'small',
                     accentColor: '#66cc8a',
