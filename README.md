@@ -15,6 +15,10 @@ To develop do the following:
 
 A browser window should open with the current state of the website. Happy coding.
 
+To deploy a new website:
+
+`npm run deploy`
+
 
 ## Used tools
 

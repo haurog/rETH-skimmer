@@ -1,7 +1,7 @@
 export function findRETHRatioByDate(targetDate, rETHRatios) {
-    targetDateTimestamp = targetDate.getTime() / 1000;
+    let targetDateTimestamp = targetDate.getTime() / 1000;
     // console.log("targetDate: ", targetDateTimestamp);
-    for (i = 0; i < rETHRatios.length; i++) {
+    for (var i = 0; i < rETHRatios.length; i++) {
         if (rETHRatios[i].block.timestamp < targetDateTimestamp) {
             // console.log("Timestamp: ", rETHRatios[i].block.timestamp, ", i: ", i);
             break;

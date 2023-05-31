@@ -20,14 +20,16 @@ export default function Example() {
   console.log("rETHRatios state: ", rETHRatios)
 
   if (rETHRatios == 0) {
+    // let url = 'https://api.allorigins.win/get?url=$' + encodeURIComponent(rocketScanRETHURL)
+    // console.log("in if:", url);
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
       .then(response => {
         if (response.ok) return response.json()
         throw new Error('Network response was not ok.')
       })
       .then(data => {
-        rETHRatiosVariable = JSON.parse(data.contents).ratios;
-        // console.log("rETHRatios updated: ", rETHRatiosVariable);
+        let rETHRatiosVariable = JSON.parse(data.contents).ratios;
+        console.log("rETHRatiosVariable: ", rETHRatiosVariable)
         setRETHRatios(rETHRatiosVariable);
       }
       );

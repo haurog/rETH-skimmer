@@ -42,7 +42,7 @@ export default function Calculator(props) {
     args: [address],
     watch: false,
     onSuccess(data) {
-      rETHAmount = ethers.utils.formatEther(data.toString());
+      let rETHAmount = ethers.utils.formatEther(data.toString());
       console.log('rETH amount: ', rETHAmount);
       setRETH(rETHAmount);
       setRETHToSkim(calcRETHToSkim(rETHAmount, rateIncrease));
