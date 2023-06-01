@@ -30,6 +30,7 @@ export default function Calculator(props) {
   const [rateIncrease, setRateIncrease] = useState(0);
   const [APY, setAPY] = useState(0);
   const [rETH, setRETH] = useState(0)  // rETH total under the users control
+  const [equivalentETH, setEquivalentRETH] = useState(0)  // rETH total under the users control
   const [rETHtoSkim, setRETHToSkim] = useState(0)
 
   const { address, connector, isConnected } = useAccount()
@@ -75,6 +76,7 @@ export default function Calculator(props) {
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
     setRETHToSkim(calcRETHToSkim(rETH, tempRateIncrease));
+    setEquivalentRETH(endRatio.rate*rETH/1e18);
   }
 
   function calcRETHToSkim(rETH, rateIncrease) { // rate increase in %
@@ -129,6 +131,9 @@ export default function Calculator(props) {
                 value={dateRange}
                 onChange={handleDateRangeChange}
               />
+            </div>
+            <div>
+              <h2>equivalent ETH: {equivalentETH.toPrecision(3)} rETH</h2>
             </div>
             <div>
               <h2>Increase: {rateIncrease.toPrecision(3)} % (&#8781; {APY.toPrecision(3)} % APY)</h2>
