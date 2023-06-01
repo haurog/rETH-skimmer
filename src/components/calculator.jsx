@@ -94,6 +94,21 @@ export default function Calculator(props) {
 
         <div className="mt-6">
           <div className="space-y-6">
+          <div>
+              <label htmlFor="rETH" className="block text-sm leading-6 text-gray-900">
+                rETH to calculate the skim amount from.
+              </label>
+              <input
+                value={rETH}
+                onChange={handleRETHChange}
+                type="number"
+                name="rETH"
+                id="rETH"
+                placeholder="rETH"
+                required
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              />
+            </div>
             <div>
               <label className="block text-sm leading-6 text-gray-900">
                 Date range over which to calculate the rETH yield.
@@ -114,21 +129,6 @@ export default function Calculator(props) {
                 }}
                 value={dateRange}
                 onChange={handleDateRangeChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="rETH" className="block text-sm leading-6 text-gray-900">
-                rETH to calculate the skim amount from.
-              </label>
-              <input
-                value={rETH}
-                onChange={handleRETHChange}
-                type="number"
-                name="rETH"
-                id="rETH"
-                placeholder="rETH"
-                required
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
             <div>
