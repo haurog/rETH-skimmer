@@ -15,8 +15,7 @@ const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 
 export default function Calculator(props) {
-
-  const rocketPoolStartDate = new Date("2021-11-7")  // started on Nov 8th, but need to set 1 day earlier for calendar to work
+  const rocketPoolStartDate = new Date("2021-11-08T00:00:00Z")  // started on Nov 9th at midnight, but need to set 1 day earlier to be able to select the start date in the calendar
   const today = new Date();
   const startOfTheMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   var tempLastMonth = new Date;  // Will be set to a date in the last month
