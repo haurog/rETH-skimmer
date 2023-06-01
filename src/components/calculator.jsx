@@ -95,6 +95,9 @@ export default function Calculator(props) {
         <div className="mt-6">
           <div className="space-y-6">
             <div>
+              <label className="block text-sm leading-6 text-gray-900">
+                Date range over which to calculate the rETH yield.
+              </label>
               <Datepicker
                 primaryColor={"orange"}
                 showShortcuts={true}
@@ -114,8 +117,8 @@ export default function Calculator(props) {
               />
             </div>
             <div>
-              <label htmlFor="size" className="sr-only">
-                File size (in mb)
+              <label htmlFor="rETH" className="block text-sm leading-6 text-gray-900">
+                rETH to calculate the skim amount from.
               </label>
               <input
                 value={rETH}
