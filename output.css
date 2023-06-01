@@ -713,18 +713,6 @@ select {
   }
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .absolute {
   position: absolute;
 }
@@ -819,6 +807,10 @@ select {
   margin-top: 1px;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mt-16 {
   margin-top: 4rem;
 }
@@ -831,8 +823,8 @@ select {
   margin-top: 580px;
 }
 
-.mt-4 {
-  margin-top: 1rem;
+.mt-24 {
+  margin-top: 6rem;
 }
 
 .mt-3 {
@@ -1583,9 +1575,9 @@ select {
   padding-bottom: 0px;
 }
 
-.py-24 {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .px-6 {
@@ -1887,6 +1879,11 @@ select {
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+.text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
 .text-emerald-700 {
@@ -2817,9 +2814,9 @@ select {
     padding-right: 0.5rem;
   }
 
-  .sm\:py-32 {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+  .sm\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 
   .sm\:px-10 {
@@ -2832,8 +2829,8 @@ select {
     padding-right: 1.5rem;
   }
 
-  .sm\:pb-24 {
-    padding-bottom: 6rem;
+  .sm\:pb-12 {
+    padding-bottom: 3rem;
   }
 
   .sm\:text-center {
