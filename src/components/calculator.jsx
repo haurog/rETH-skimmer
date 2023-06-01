@@ -76,12 +76,16 @@ export default function Calculator(props) {
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
     setRETHToSkim(calcRETHToSkim(rETH, tempRateIncrease));
-    setEquivalentRETH(endRatio.rate*rETH/1e18);
+    setEquivalentRETH(calcEquivalentETH(rETH, endRatio));
   }
 
   function calcRETHToSkim(rETH, rateIncrease) { // rate increase in %
     console.log("rETH to skim: ", rETH * rateIncrease / 100);
     return rETH * rateIncrease / 100;
+  }
+
+  function calcEquivalentETH(rETH, ratio) {
+    return ratio.rate * rETH / 1e18;
   }
 
   console.log("APY: ", APY)
@@ -95,7 +99,7 @@ export default function Calculator(props) {
 
         <div className="mt-6">
           <div className="space-y-6">
-          <div>
+            <div>
               <label htmlFor="rETH" className="block text-sm leading-6 text-gray-900">
                 rETH to calculate the skim amount from.
               </label>

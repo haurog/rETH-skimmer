@@ -35,8 +35,6 @@ export default function Example() {
       );
   }
 
-
-
   return (
     <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
       <div className="hidden sm:absolute sm:inset-0 sm:block" aria-hidden="true">
