@@ -8,7 +8,7 @@
     "start": "parcel index.html --open",
     "build": "rm -rf dist && npx tailwindcss -i ./src/input.css -o ./dist/output.css && parcel build index.html --public-url ./",
     "predeploy": "rm -rf dist && npx tailwindcss -i ./src/input.css -o ./dist/output.css && parcel build ./*.html --public-url ./",
-    "deploy": "gh-pages -d dist"
+    "deploy": "echo reth-skimmer.haurog.xyz > ./dist/CNAME && gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
