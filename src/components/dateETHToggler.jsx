@@ -33,8 +33,8 @@ import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 
 const methods = [
-  { name: 'by date'},
-  { name: 'by remaining ETH'},
+  { name: 'by date' },
+  { name: 'by remaining ETH' },
 ]
 
 function classNames(...classes) {

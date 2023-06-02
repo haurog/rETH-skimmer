@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
 import { ethers } from 'ethers';
 
 import { ToastContainer, toast } from 'react-toastify'
