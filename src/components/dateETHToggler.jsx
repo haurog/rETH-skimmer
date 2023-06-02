@@ -41,7 +41,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function DateETHToggler() {
   const [method, setMethod] = useState(methods[0])
 
   return (
