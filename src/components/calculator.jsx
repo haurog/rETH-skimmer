@@ -3,10 +3,12 @@ import { useAccount, useContractRead } from 'wagmi';
 import { ethers } from 'ethers';
 
 import SkimRewards from './SkimRewards';
+import DateETHToggler  from './dateETHToggler'
 
 import Datepicker from "react-tailwindcss-datepicker";
 
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
+
 
 import { addressesToken } from '../helper/Addresses';
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
@@ -96,7 +98,7 @@ export default function Calculator(props) {
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
-
+        <DateETHToggler />
         <div className="mt-6">
           <div className="space-y-6">
             <div>
