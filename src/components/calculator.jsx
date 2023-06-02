@@ -35,6 +35,8 @@ export default function Calculator(props) {
   const [equivalentETH, setEquivalentRETH] = useState(0)  // rETH total under the users control
   const [rETHtoSkim, setRETHToSkim] = useState(0)
 
+  const [methodChosen, setMethodChosen] = useState() // to set calculation method (date, ETH) by child component
+
   const { address, connector, isConnected } = useAccount()
 
   const contractRead = useContractRead({
@@ -94,11 +96,12 @@ export default function Calculator(props) {
   // console.log("startOfTheMonth: ", startOfTheMonth);
   // console.log("startOfLastMonth: ", startOfLastMonth);
   // console.log("rethRatios", props.rETHRatios);
+  // console.log("Method Chosen: ", methodChosen);
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
-        <DateETHToggler />
+        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen}/>
         <div className="mt-6">
           <div className="space-y-6">
             <div>
