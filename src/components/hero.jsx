@@ -29,7 +29,7 @@ export default function Example() {
       })
       .then(data => {
         let rETHRatiosVariable = JSON.parse(data.contents).ratios;
-        console.log("rETHRatiosVariable: ", rETHRatiosVariable)
+        // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
         setRETHRatios(rETHRatiosVariable);
       }
       );

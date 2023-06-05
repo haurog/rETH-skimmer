@@ -9,6 +9,7 @@ import EthInputField from './ETHInputField';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 import { addressesToken } from '../helper/Addresses';
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
+import CalculatedStats from './calculatedStats';
 
 const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
@@ -38,7 +39,7 @@ export default function Calculator(props) {
     watch: false,
     onSuccess(data) {
       let rETHAmount = ethers.utils.formatEther(data.toString());
-      console.log('rETH amount: ', rETHAmount);
+      // console.log('rETH amount: ', rETHAmount);
       setRETH(rETHAmount);
       setRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
     },
@@ -56,7 +57,7 @@ export default function Calculator(props) {
   };
 
   const handleETHToRemainChange = event => {
-    console.log("in handle ETH to remain: ", event.target.value);
+    // console.log("in handle ETH to remain: ", event.target.value);
     setETHToRemain(event.target.value);
     setRETHToSkim(calcRETHToSkimFromETH(rETH, event.target.value));
     // console.log("Size: ", event.target.value, size)
@@ -74,7 +75,7 @@ export default function Calculator(props) {
     newValue.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
     const endDate = new Date(newValue.endDate);
     newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-    console.log("dateRange: ", newValue)
+    // console.log("dateRange: ", newValue)
     setDateRange(newValue);
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
@@ -87,7 +88,7 @@ export default function Calculator(props) {
   }
 
   function calcRETHToSkimFromDate(rETH, rateIncrease) {
-    console.log("rETH to skim: ", rETH * rateIncrease / 100);
+    // console.log("rETH to skim: ", rETH * rateIncrease / 100);
     return rETH * rateIncrease / 100;
   }
 
@@ -104,7 +105,7 @@ export default function Calculator(props) {
     return ratio.rate * rETH / 1e18;
   }
 
-  console.log("APY: ", APY)
+  // console.log("APY: ", APY)
   // console.log("startOfTheMonth: ", startOfTheMonth);
   // console.log("startOfLastMonth: ", startOfLastMonth);
   // console.log("rethRatios", props.rETHRatios);
@@ -118,7 +119,7 @@ export default function Calculator(props) {
       inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange} />
     }
   }
-  console.log("Input Field: ", inputField, methodChosen);
+  // console.log("Input Field: ", inputField, methodChosen);
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
@@ -151,6 +152,7 @@ export default function Calculator(props) {
             <div>
               <h2>rETH to skim: {rETHtoSkim.toPrecision(3)} rETH</h2>
             </div>
+            <CalculatedStats rETHRatios={props.rETHRatios} />
             <SkimRewards rETHValue={rETHtoSkim} />
           </div>
         </div>
