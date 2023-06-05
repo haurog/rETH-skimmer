@@ -126,11 +126,15 @@ export default function Calculator(props) {
   }
   // console.log("Input Field: ", inputField, methodChosen);
 
-  const calculatedStats = [
-    { id: 1, name: 'equivalent ETH', value: equivalentETH, unit: 'ETH' },
-    { id: 2, name: 'Increase', value: rateIncrease, unit: '%', additional: '(≍ ' + APY.toPrecision(3) + ' % APY)' },
-    { id: 3, name: 'rETH to skim', value: rETHtoSkim, unit: 'rETH' },
+  let calculatedStats = [
+    { id: 1, name: 'equivalent ETH', value: equivalentETH, unit: 'ETH' }
   ]
+  if (methodChosen && methodChosen.name == 'by date'){
+    calculatedStats.push({ id: 2, name: 'Increase', value: rateIncrease, unit: '%', additional: '(≍ ' + APY.toPrecision(3) + ' % APY)' })
+  }
+  calculatedStats.push({ id: 3, name: 'rETH to skim', value: rETHtoSkim, unit: 'rETH' })
+
+
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
