@@ -17,8 +17,6 @@ const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
 
 export default function Calculator(props) {
 
-  const today = new Date();
-
   const [dateRange, setDateRange] = useState({
     startDate: null,
     endDate: null
@@ -56,6 +54,7 @@ export default function Calculator(props) {
   };
 
   const handleDateRangeChange = (newValue) => {
+    const today = new Date();
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
       newValue.endDate = today;
     }
