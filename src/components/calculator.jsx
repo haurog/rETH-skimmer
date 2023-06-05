@@ -47,12 +47,7 @@ export default function Calculator(props) {
 
   const handleRETHChange = event => {
     setRETH(event.target.value);
-    if (methodChosen.name == 'by date') {
-      setRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
-    } else if (methodChosen.name == 'by remaining ETH') {
-      setRETHToSkim(calcRETHToSkimFromETH(event.target.value, ETHToRemain));
-    }
-
+    updateCalculatedData();
     // console.log("Size: ", event.target.value, size)
   };
 
@@ -85,6 +80,16 @@ export default function Calculator(props) {
     setAPY(calcEquivalentAPY(startRatio, endRatio));
     setRETHToSkim(calcRETHToSkimFromDate(rETH, tempRateIncrease));
     setEquivalentRETH(calcEquivalentETH(rETH, endRatio));
+  }
+
+  function updateCalculatedData() {
+    if (methodChosen) {
+      if (methodChosen.name == 'by date') {
+        setRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
+      } else if (methodChosen.name == 'by remaining ETH') {
+        setRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
+      }
+    }
   }
 
   function calcRETHToSkimFromDate(rETH, rateIncrease) {
@@ -121,6 +126,12 @@ export default function Calculator(props) {
   }
   // console.log("Input Field: ", inputField, methodChosen);
 
+  const calculatedStats = [
+    { id: 1, name: 'equivalent ETH', value: equivalentETH, unit: 'ETH' },
+    { id: 2, name: 'Increase', value: rateIncrease, unit: '%', additional: '(≍ ' + APY.toPrecision(3) + ' % APY)' },
+    { id: 3, name: 'rETH to skim', value: rETHtoSkim, unit: 'rETH' },
+  ]
+
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
@@ -143,7 +154,7 @@ export default function Calculator(props) {
               />
             </div>
             {inputField}
-            <div>
+            {/* <div>
               <h2>equivalent ETH: {equivalentETH.toPrecision(3)} rETH</h2>
             </div>
             <div>
@@ -151,8 +162,8 @@ export default function Calculator(props) {
             </div>
             <div>
               <h2>rETH to skim: {rETHtoSkim.toPrecision(3)} rETH</h2>
-            </div>
-            <CalculatedStats rETHRatios={props.rETHRatios} />
+            </div> */}
+            <CalculatedStats calculatedStats={calculatedStats} />
             <SkimRewards rETHValue={rETHtoSkim} />
           </div>
         </div>
