@@ -3,17 +3,14 @@ import { useAccount, useContractRead } from 'wagmi';
 import { ethers } from 'ethers';
 
 import SkimRewards from './SkimRewards';
-import DateETHToggler  from './dateETHToggler'
-import DateRangeInput  from './DateRangeInput'
-
+import DateETHToggler from './dateETHToggler'
+import DateRangeInput from './DateRangeInput'
+import EthInputField from './ETHInputField';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
-
-
 import { addressesToken } from '../helper/Addresses';
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
+
 const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
-
-
 
 export default function Calculator(props) {
 
@@ -25,7 +22,8 @@ export default function Calculator(props) {
   const [rateIncrease, setRateIncrease] = useState(0);
   const [APY, setAPY] = useState(0);
   const [rETH, setRETH] = useState(0)  // rETH total under the users control
-  const [equivalentETH, setEquivalentRETH] = useState(0)  // rETH total under the users control
+  const [equivalentETH, setEquivalentRETH] = useState(0)  // Equivalent ETH calculate from rETH
+  const [ETHToRemain, setETHToRemain] = useState(0)  // ETH to remain after skimming
   const [rETHtoSkim, setRETHToSkim] = useState(0)
 
   const [methodChosen, setMethodChosen] = useState() // to set calculation method (date, ETH) by child component
@@ -42,14 +40,25 @@ export default function Calculator(props) {
       let rETHAmount = ethers.utils.formatEther(data.toString());
       console.log('rETH amount: ', rETHAmount);
       setRETH(rETHAmount);
-      setRETHToSkim(calcRETHToSkim(rETHAmount, rateIncrease));
+      setRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
     },
   })
 
-
   const handleRETHChange = event => {
     setRETH(event.target.value);
-    setRETHToSkim(calcRETHToSkim(event.target.value, rateIncrease));
+    if (methodChosen.name == 'by date') {
+      setRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
+    } else if (methodChosen.name == 'by remaining ETH') {
+      setRETHToSkim(calcRETHToSkimFromETH(event.target.value, ETHToRemain));
+    }
+
+    // console.log("Size: ", event.target.value, size)
+  };
+
+  const handleETHToRemainChange = event => {
+    console.log("in handle ETH to remain: ", event.target.value);
+    setETHToRemain(event.target.value);
+    setRETHToSkim(calcRETHToSkimFromETH(rETH, event.target.value));
     // console.log("Size: ", event.target.value, size)
   };
 
@@ -73,13 +82,22 @@ export default function Calculator(props) {
     let tempRateIncrease = calcRateIncrease(startRatio, endRatio);
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
-    setRETHToSkim(calcRETHToSkim(rETH, tempRateIncrease));
+    setRETHToSkim(calcRETHToSkimFromDate(rETH, tempRateIncrease));
     setEquivalentRETH(calcEquivalentETH(rETH, endRatio));
   }
 
-  function calcRETHToSkim(rETH, rateIncrease) { // rate increase in %
+  function calcRETHToSkimFromDate(rETH, rateIncrease) {
     console.log("rETH to skim: ", rETH * rateIncrease / 100);
     return rETH * rateIncrease / 100;
+  }
+
+  function calcRETHToSkimFromETH(rETH, ETHToRemain) {
+    const today = new Date();
+    let ratio = findRETHRatioByDate(today, props.rETHRatios);
+    // console.log("rate: ", )
+    let rETHToSkim = rETH * ratio.rate / 1e18 - ETHToRemain
+    // console.log("rETH to skim from remaining ETH: ", rETHToSkim, rETH, ratio.rate, ETHToRemain);
+    return rETHToSkim;
   }
 
   function calcEquivalentETH(rETH, ratio) {
@@ -92,10 +110,18 @@ export default function Calculator(props) {
   // console.log("rethRatios", props.rETHRatios);
   // console.log("Method Chosen: ", methodChosen);
 
+  let inputField;
+  if (methodChosen.name == 'by date') {
+    inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} />
+  } else if (methodChosen.name == 'by remaining ETH') {
+    inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange}/>
+  }
+  console.log("Input Field: ", inputField, methodChosen);
+
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
-        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen}/>
+        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} />
         <div className="mt-6">
           <div className="space-y-6">
             <div>
@@ -113,7 +139,7 @@ export default function Calculator(props) {
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
-            <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange}/>
+              {inputField}
             <div>
               <h2>equivalent ETH: {equivalentETH.toPrecision(3)} rETH</h2>
             </div>
