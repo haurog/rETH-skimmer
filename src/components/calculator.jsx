@@ -24,7 +24,7 @@ export default function Calculator(props) {
   const [rateIncrease, setRateIncrease] = useState(0);
   const [APY, setAPY] = useState(0);
   const [rETH, setRETH] = useState(0)  // rETH total under the users control
-  const [equivalentETH, setEquivalentRETH] = useState(0)  // Equivalent ETH calculate from rETH
+  const [equivalentETH, setEquivalentETH] = useState(0)  // Equivalent ETH calculate from rETH
   const [ETHToRemain, setETHToRemain] = useState(0)  // ETH to remain after skimming
   const [rETHtoSkim, setRETHToSkim] = useState(0)
 
@@ -43,12 +43,22 @@ export default function Calculator(props) {
       // console.log('rETH amount: ', rETHAmount);
       setRETH(rETHAmount);
       setRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
+      setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
     },
   })
 
   const handleRETHChange = event => {
     setRETH(event.target.value);
-    updateCalculatedData();
+    console.log("before if")
+    if (methodChosen) {
+      console.log("in if")
+      if (methodChosen == methods[0]) {
+        setRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
+      } else if (methodChosen == methods[1]) {
+        setRETHToSkim(calcRETHToSkimFromETH(event.target.value, ETHToRemain));
+      }
+    }
+    setEquivalentETH(calcEquivalentETH(event.target.value, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
     // console.log("Size: ", event.target.value, size)
   };
 
@@ -80,17 +90,7 @@ export default function Calculator(props) {
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
     setRETHToSkim(calcRETHToSkimFromDate(rETH, tempRateIncrease));
-    setEquivalentRETH(calcEquivalentETH(rETH, endRatio));
-  }
-
-  function updateCalculatedData() {
-    if (methodChosen) {
-      if (methodChosen == methods[0]) {
-        setRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
-      } else if (methodChosen == methods[1]) {
-        setRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
-      }
-    }
+    setEquivalentETH(calcEquivalentETH(rETH, endRatio));
   }
 
   function calcRETHToSkimFromDate(rETH, rateIncrease) {
