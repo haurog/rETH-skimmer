@@ -111,10 +111,12 @@ export default function Calculator(props) {
   // console.log("Method Chosen: ", methodChosen);
 
   let inputField;
-  if (methodChosen.name == 'by date') {
-    inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} />
-  } else if (methodChosen.name == 'by remaining ETH') {
-    inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange}/>
+  if (methodChosen) {
+    if (methodChosen.name == 'by date') {
+      inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} />
+    } else if (methodChosen.name == 'by remaining ETH') {
+      inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange} />
+    }
   }
   console.log("Input Field: ", inputField, methodChosen);
 
@@ -139,7 +141,7 @@ export default function Calculator(props) {
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
-              {inputField}
+            {inputField}
             <div>
               <h2>equivalent ETH: {equivalentETH.toPrecision(3)} rETH</h2>
             </div>
