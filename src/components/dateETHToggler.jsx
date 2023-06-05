@@ -1,13 +1,10 @@
 import { RadioGroup } from '@headlessui/react'
 
+import { methods } from '../helper/objects'
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
-const methods = [
-  { name: 'by date' },
-  { name: 'by remaining ETH' },
-]
 
 export default function DateETHToggler(props) {
 

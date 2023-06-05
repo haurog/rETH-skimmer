@@ -8,6 +8,7 @@ import DateRangeInput from './DateRangeInput'
 import EthInputField from './ETHInputField';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 import { addressesToken } from '../helper/Addresses';
+import { methods } from '../helper/objects'
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 import CalculatedStats from './calculatedStats';
 
@@ -84,9 +85,9 @@ export default function Calculator(props) {
 
   function updateCalculatedData() {
     if (methodChosen) {
-      if (methodChosen.name == 'by date') {
+      if (methodChosen == methods[0]) {
         setRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
-      } else if (methodChosen.name == 'by remaining ETH') {
+      } else if (methodChosen == methods[1]) {
         setRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
       }
     }
@@ -118,9 +119,9 @@ export default function Calculator(props) {
 
   let inputField;
   if (methodChosen) {
-    if (methodChosen.name == 'by date') {
+    if (methodChosen == methods[0]) {
       inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} />
-    } else if (methodChosen.name == 'by remaining ETH') {
+    } else if (methodChosen == methods[1]) {
       inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange} />
     }
   }
@@ -129,7 +130,7 @@ export default function Calculator(props) {
   let calculatedStats = [
     { id: 1, name: 'equivalent ETH', value: equivalentETH, unit: 'ETH' }
   ]
-  if (methodChosen && methodChosen.name == 'by date'){
+  if (methodChosen && methodChosen == methods[0]) {
     calculatedStats.push({ id: 2, name: 'Increase', value: rateIncrease, unit: '%', additional: '(≍ ' + APY.toPrecision(3) + ' % APY)' })
   }
   calculatedStats.push({ id: 3, name: 'rETH to skim', value: rETHtoSkim, unit: 'rETH' })
