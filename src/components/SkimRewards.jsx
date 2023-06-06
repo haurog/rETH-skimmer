@@ -36,7 +36,7 @@ export default function SkimRewards(props) {
       console.log('Success', data)
       const CustomToastWithLink = () => (
         <div>
-          <a href={"https://polygonscan.com/tx/" + data.transactionHash}>Carbon emission offset</a>
+          <a href={"https://etherscan.io/tx/" + data.transactionHash}>Carbon emission offset</a>
         </div>
       );
       const notify = () => {
