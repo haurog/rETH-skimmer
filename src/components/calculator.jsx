@@ -42,10 +42,15 @@ export default function Calculator(props) {
       let rETHAmount = ethers.utils.formatEther(data.toString());
       // console.log('rETH amount: ', rETHAmount);
       setRETH(rETHAmount);
-      setRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
+      preSetRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
       setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
     },
   })
+
+
+  function preSetRETHToSkim(rETHToSkim){
+    setRETHToSkim(rETHToSkim >= 0 ? rETHToSkim : 0);
+  }
 
   const handleRETHChange = event => {
     setRETH(event.target.value);
@@ -53,9 +58,9 @@ export default function Calculator(props) {
     if (methodChosen) {
       console.log("in if")
       if (methodChosen == methods[0]) {
-        setRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
+        preSetRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
       } else if (methodChosen == methods[1]) {
-        setRETHToSkim(calcRETHToSkimFromETH(event.target.value, ETHToRemain));
+        preSetRETHToSkim(calcRETHToSkimFromETH(event.target.value, ETHToRemain));
       }
     }
     setEquivalentETH(calcEquivalentETH(event.target.value, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
@@ -65,7 +70,7 @@ export default function Calculator(props) {
   const handleETHToRemainChange = event => {
     // console.log("in handle ETH to remain: ", event.target.value);
     setETHToRemain(event.target.value);
-    setRETHToSkim(calcRETHToSkimFromETH(rETH, event.target.value));
+    preSetRETHToSkim(calcRETHToSkimFromETH(rETH, event.target.value));
     // console.log("Size: ", event.target.value, size)
   };
 
@@ -73,9 +78,9 @@ export default function Calculator(props) {
     setMethodChosen(event);
     if (methodChosen) {
       if (event == methods[0]) {
-        setRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
+        preSetRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
       } else if (event == methods[1]) {
-        setRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
+        preSetRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
       }
     }
   }
@@ -100,7 +105,7 @@ export default function Calculator(props) {
     let tempRateIncrease = calcRateIncrease(startRatio, endRatio);
     setRateIncrease(tempRateIncrease);
     setAPY(calcEquivalentAPY(startRatio, endRatio));
-    setRETHToSkim(calcRETHToSkimFromDate(rETH, tempRateIncrease));
+    preSetRETHToSkim(calcRETHToSkimFromDate(rETH, tempRateIncrease));
     setEquivalentETH(calcEquivalentETH(rETH, endRatio));
   }
 
