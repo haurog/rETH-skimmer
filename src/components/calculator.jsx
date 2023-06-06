@@ -69,6 +69,17 @@ export default function Calculator(props) {
     // console.log("Size: ", event.target.value, size)
   };
 
+  const handleMethodsChange = event => {
+    setMethodChosen(event);
+    if (methodChosen) {
+      if (event == methods[0]) {
+        setRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
+      } else if (event == methods[1]) {
+        setRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
+      }
+    }
+  }
+
   const handleDateRangeChange = (newValue) => {
     const today = new Date();
     if (Date.parse(newValue.endDate) > Date.parse(today)) {
@@ -140,7 +151,7 @@ export default function Calculator(props) {
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
-        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} />
+        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange}/>
         <div className="mt-6">
           <div className="space-y-6">
             <div>

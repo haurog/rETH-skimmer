@@ -20,7 +20,7 @@ export default function DateETHToggler(props) {
         <h2 className="text-sm font-medium leading-6 text-gray-900">Calculation Method</h2>
       </div>
 
-      <RadioGroup value={props.methodChosen} onChange={props.setMethodChosen} className="mt-2">
+      <RadioGroup value={props.methodChosen} onChange={props.handleMethodsChange} className="mt-2">
         <RadioGroup.Label className="sr-only">Choose a calculation method</RadioGroup.Label>
         <div className="grid gap-3 grid-cols-2">
           {methods.map((option) => (
