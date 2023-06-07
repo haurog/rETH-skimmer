@@ -21,6 +21,7 @@ export default function DateRangeInput(props) {
         primaryColor={"orange"}
         showShortcuts={true}
         showFooter={true}
+        startWeekOn="mon"
         minDate={rocketPoolStartDate}
         maxDate={today}
         startFrom={startOfLastMonth}
