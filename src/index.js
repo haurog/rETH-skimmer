@@ -8,26 +8,46 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { getDefaultWallets, connectorsForWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit';
 import { metaMaskWallet, rainbowWallet, walletConnectWallet, coinbaseWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
 import { mainnet, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
+
+import { Chain } from 'wagmi'
+
+const local_fork = {
+  id: 1337,
+  name: 'Local_mainnet_Fork',
+  network: 'ganache',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Ether',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    default: { http: ['127.0.0.1:8545'] },
+  },
+  blockExplorers: {},
+  contracts: {},
+}
+
+
 const { chains, provider } = configureChains(
-  [mainnet, goerli],
+  [mainnet, goerli, local_fork],
   [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: `https://eth-rpc.gateway.pokt.network`,
-      }),
-    }),
-    publicProvider()
-    ,
-    jsonRpcProvider({
-      rpc: () => ({
-        http: `https://rpc.ankr.com/eth_goerli`,
-      }),
-    }),
+    // jsonRpcProvider({
+    //   rpc: () => ({
+    //     http: `https://eth-rpc.gateway.pokt.network`,
+    //   }),
+    // }),
+    // publicProvider()
+    // ,
+    // jsonRpcProvider({
+    //   rpc: () => ({
+    //     http: `https://rpc.ankr.com/eth_goerli`,
+    //   }),
+    // }),
     publicProvider()
   ]
 );
