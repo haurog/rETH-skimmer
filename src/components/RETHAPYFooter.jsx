@@ -15,7 +15,6 @@ export default function RETHAPYFooter(props) {
 
   function calcAPYs() {
     if (!props.rETHRatios) {
-      // console.log("in if: ", props.rETHRatios)
       return
     }
 

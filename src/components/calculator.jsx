@@ -54,9 +54,7 @@ export default function Calculator(props) {
 
   const handleRETHChange = event => {
     setRETH(event.target.value);
-    console.log("before if")
     if (methodChosen) {
-      console.log("in if")
       if (methodChosen == methods[0]) {
         preSetRETHToSkim(calcRETHToSkimFromDate(event.target.value, rateIncrease));
       } else if (methodChosen == methods[1]) {
