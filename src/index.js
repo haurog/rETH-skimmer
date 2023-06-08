@@ -34,7 +34,8 @@ const local_fork = {
 
 
 const { chains, provider } = configureChains(
-  [mainnet, goerli, local_fork],
+  // [mainnet, goerli, local_fork],  // for local testing only
+  [mainnet, goerli],
   [
     // jsonRpcProvider({
     //   rpc: () => ({
