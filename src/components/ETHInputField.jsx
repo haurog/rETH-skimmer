@@ -5,7 +5,7 @@ export default function EthInputField(props) {
   return (
     <div>
       <label htmlFor="ETH" className="block text-sm leading-6 text-gray-900">
-        ETH amount that should remain after skimming.
+        ETH amount that should remain after skimming:
       </label>
       <input
         value={props.ETHToRemain}

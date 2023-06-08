@@ -159,7 +159,7 @@ export default function Calculator(props) {
           <div className="space-y-6">
             <div>
               <label htmlFor="rETH" className="block text-sm leading-6 text-gray-900">
-                rETH to calculate the skim amount from.
+                rETH to calculate the skim amount from:
               </label>
               <input
                 value={rETH}

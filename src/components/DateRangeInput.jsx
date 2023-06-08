@@ -15,7 +15,7 @@ export default function DateRangeInput(props) {
   return (
     <div>
       <label className="block text-sm leading-6 text-gray-900">
-        Date range over which to calculate the rETH yield.
+        Date range over which to calculate the rETH yield:
       </label>
       <Datepicker
         primaryColor={"orange"}
