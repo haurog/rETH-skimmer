@@ -32,15 +32,38 @@ export default function SkimRewards(props) {
 
   const waitForTransaction = useWaitForTransaction({
     hash: sendRETH.data?.hash,
+    onSettled(data, error) {
+      const SubmittedToast = () => (
+        <div>
+          <a href={"https://etherscan.io/tx/" + data.transactionHash}>Transaction submitted.</a>
+        </div>
+      );
+      console.log("contract write, data: ", data, " error: ", error)
+      if (!error) {
+        const notify = () => {
+          toast.info(SubmittedToast, {
+            position: "bottom-right",
+            autoClose: 10000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        };
+        notify();
+      }
+    },
     onSuccess(data) {
       console.log('Success', data)
-      const CustomToastWithLink = () => (
+      const SucceededToast = () => (
         <div>
           <a href={"https://etherscan.io/tx/" + data.transactionHash}>surplus rETH skimmed.</a>
         </div>
       );
       const notify = () => {
-        toast.success(CustomToastWithLink, {
+        toast.success(SucceededToast, {
           position: "bottom-right",
           autoClose: false,
           hideProgressBar: true,
@@ -53,11 +76,11 @@ export default function SkimRewards(props) {
       };
       notify();
     },
-    onError(error) {
-      console.log('Error', error)
-      const notify = () => toast("Transaction failed");
-      notify();
-    },
+    // onError(error) {
+    //   console.log('Error', error)
+    //   const notify = () => toast("Transaction failed");
+    //   notify();
+    // },
   })
 
   return (
