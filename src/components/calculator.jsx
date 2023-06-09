@@ -15,7 +15,6 @@ import CalculatedStats from './calculatedStats';
 export default function Calculator(props) {
 
   const { chain } = useNetwork();
-  console.log("chain: ", chain)
   let chainName = 'Ethereum'
   if (chain) {
     chainName = chain.name
@@ -101,7 +100,6 @@ export default function Calculator(props) {
     newValue.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
     const endDate = new Date(newValue.endDate);
     newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-    // console.log("dateRange: ", newValue)
     setDateRange(newValue);
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
@@ -114,28 +112,19 @@ export default function Calculator(props) {
   }
 
   function calcRETHToSkimFromDate(rETH, rateIncrease) {
-    // console.log("rETH to skim: ", rETH * rateIncrease / 100);
     return rETH * rateIncrease / 100;
   }
 
   function calcRETHToSkimFromETH(rETH, ETHToRemain) {
     const today = new Date();
     let ratio = findRETHRatioByDate(today, props.rETHRatios);
-    // console.log("rate: ", )
     let rETHToSkim = rETH * ratio.rate / 1e18 - ETHToRemain
-    // console.log("rETH to skim from remaining ETH: ", rETHToSkim, rETH, ratio.rate, ETHToRemain);
     return rETHToSkim;
   }
 
   function calcEquivalentETH(rETH, ratio) {
     return ratio.rate * rETH / 1e18;
   }
-
-  // console.log("APY: ", APY)
-  // console.log("startOfTheMonth: ", startOfTheMonth);
-  // console.log("startOfLastMonth: ", startOfLastMonth);
-  // console.log("rethRatios", props.rETHRatios);
-  // console.log("Method Chosen: ", methodChosen);
 
   let inputField;
   if (methodChosen) {
