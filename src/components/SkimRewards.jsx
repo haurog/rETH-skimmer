@@ -1,15 +1,22 @@
 import React from 'react';
 
-import { usePrepareContractWrite, useContractWrite, useWaitForTransaction, } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite, useWaitForTransaction, useNetwork } from 'wagmi';
 import { ethers } from 'ethers';
 
 import { ToastContainer, toast } from 'react-toastify'
 
 import { addressesToken } from '../helper/Addresses';
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
-const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
+
 
 export default function SkimRewards(props) {
+
+  const { chain } = useNetwork();
+  let chainName = 'Ethereum'
+  if (chain) {
+    chainName = chain.name
+  }
+  const rETH_CONTRACT_ADDRESS = addressesToken[chainName].rETH;
 
   // const { configApprove } = usePrepareContractWrite({
   //   address: rETH_CONTRACT_ADDRESS,

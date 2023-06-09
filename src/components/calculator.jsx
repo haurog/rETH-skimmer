@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { useAccount, useContractRead } from 'wagmi';
+import { useAccount, useContractRead, useNetwork} from 'wagmi';
 import { ethers } from 'ethers';
 
 import SkimRewards from './SkimRewards';
@@ -12,9 +12,15 @@ import { methods } from '../helper/objects'
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 import CalculatedStats from './calculatedStats';
 
-const rETH_CONTRACT_ADDRESS = addressesToken.rETH;
-
 export default function Calculator(props) {
+
+  const { chain } = useNetwork();
+  console.log("chain: ", chain)
+  let chainName = 'Ethereum'
+  if (chain) {
+    chainName = chain.name
+  }
+  const rETH_CONTRACT_ADDRESS = addressesToken[chainName].rETH;
 
   const [dateRange, setDateRange] = useState({
     startDate: null,
