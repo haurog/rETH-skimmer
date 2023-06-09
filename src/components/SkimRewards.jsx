@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { usePrepareContractWrite, useContractWrite, useWaitForTransaction, useNetwork } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite, useTransaction, useWaitForTransaction, useNetwork } from 'wagmi';
 import { ethers } from 'ethers';
 
 import { ToastContainer, toast } from 'react-toastify'
@@ -37,12 +37,17 @@ export default function SkimRewards(props) {
 
   const sendRETH = useContractWrite(config)
 
-  const waitForTransaction = useWaitForTransaction({
+  const transaction = useTransaction({
     hash: sendRETH.data?.hash,
-    onSettled(data, error) {
+    onSuccess(data, error) {
+      let etherscanURL = "https://etherscan.io/tx/"
+      if (chain.name == 'Goerli') {
+        etherscanURL = "https://goerli.etherscan.io/tx/"
+      }
+      console.log("useTransaction, data: ", data, " error: ", error, " sendRETH: ", sendRETH)
       const SubmittedToast = () => (
         <div>
-          <a href={"https://etherscan.io/tx/" + data.transactionHash}>Transaction submitted.</a>
+          <a href={etherscanURL + sendRETH.data.hash}>Transaction submitted.</a>
         </div>
       );
       console.log("contract write, data: ", data, " error: ", error)
@@ -62,11 +67,19 @@ export default function SkimRewards(props) {
         notify();
       }
     },
+  })
+
+  const waitForTransaction = useWaitForTransaction({
+    hash: sendRETH.data?.hash,
     onSuccess(data) {
+      let etherscanURL = "https://etherscan.io/tx/"
+      if (chain.name == 'Goerli') {
+        etherscanURL = "https://goerli.etherscan.io/tx/"
+      }
       console.log('Success', data)
       const SucceededToast = () => (
         <div>
-          <a href={"https://etherscan.io/tx/" + data.transactionHash}>surplus rETH skimmed.</a>
+          <a href={etherscanURL + data.transactionHash}>surplus rETH skimmed.</a>
         </div>
       );
       const notify = () => {
@@ -83,11 +96,11 @@ export default function SkimRewards(props) {
       };
       notify();
     },
-    // onError(error) {
-    //   console.log('Error', error)
-    //   const notify = () => toast("Transaction failed");
-    //   notify();
-    // },
+    onError(error) {
+      console.log('Error', error)
+      const notify = () => toast("Transaction failed");
+      notify();
+    },
   })
 
   return (
