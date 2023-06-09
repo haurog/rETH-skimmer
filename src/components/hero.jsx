@@ -9,6 +9,8 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Calculator from './calculator.jsx';
 import RETHAPYFooter from './RETHAPYFooter.jsx';
 
+import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
+
 import logo from './../img/rocket_modified_plain.svg';
 
 const rocketScanRETHURL = 'https://rocketscan.io/api/mainnet/reth';
@@ -18,25 +20,29 @@ export default function Example() {
   const [rETHRatios, setRETHRatios] = useState(0);
 
   console.log("rETHRatios state: ", rETHRatios)
-
   if (rETHRatios == 0) {
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
-      .then(response => {
-        if (response.ok) return response.json()
-        throw new Error('Network response was not ok.')
-      })
-      .then(data => {
-        let rETHRatiosVariable = JSON.parse(data.contents).ratios;
-        // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
-        setRETHRatios(rETHRatiosVariable);
-      }
-      );
+    setRETHRatios(rETHRatiosHardcoded);
   }
+  console.log("rETHRatios state: ", rETHRatios)
+
+  // if (rETHRatios == 0) {
+  //   fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
+  //     .then(response => {
+  //       if (response.ok) return response.json()
+  //       throw new Error('Network response was not ok.')
+  //     })
+  //     .then(data => {
+  //       let rETHRatiosVariable = JSON.parse(data.contents).ratios;
+  //       // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
+  //       setRETHRatios(rETHRatiosVariable);
+  //     }
+  //     );
+  // }
 
   return (
     <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
       <div className="hidden sm:absolute sm:inset-0 sm:block" aria-hidden="true">
-        <img className="absolute bottom-0 right-0 -translate-x-4 md:-translate-x-1/4 -translate-y-28 lg:-translate-y-10 2xl:-translate-y-16 transform text-emerald-700 top-0 mt-[580px] lg:mt-56 lg:mb-0 w-20 md:w-32 2xl:w-48"  src={logo} alt="Rocket Pool Logo" />
+        <img className="absolute bottom-0 right-0 -translate-x-4 md:-translate-x-1/4 -translate-y-28 lg:-translate-y-10 2xl:-translate-y-16 transform text-emerald-700 top-0 mt-[580px] lg:mt-56 lg:mb-0 w-20 md:w-32 2xl:w-48" src={logo} alt="Rocket Pool Logo" />
         {/* <svg
           className="absolute bottom-0 right-0 translate-x-1/2 transform text-emerald-700 -rotate-45 top-0 mt-[580px] lg:mt-56 lg:mb-0"
           width={364}
