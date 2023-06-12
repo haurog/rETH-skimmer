@@ -20,7 +20,7 @@ export default function DateRangeInput(props) {
       <Datepicker
         primaryColor={"orange"}
         showShortcuts={true}
-        showFooter={true}
+        showFooter={false}
         startWeekOn="mon"
         minDate={rocketPoolStartDate}
         maxDate={today}
