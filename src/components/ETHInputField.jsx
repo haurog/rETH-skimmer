@@ -15,7 +15,7 @@ export default function EthInputField(props) {
         id="ETH"
         placeholder="ETH"
         required
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm py-2.5"
       />
     </div>
   )
