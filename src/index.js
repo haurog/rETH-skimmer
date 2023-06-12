@@ -82,7 +82,7 @@ root.render(
         appInfo={{ appName: 'rETH Skimmer', learnMoreUrl: 'https://learnaboutcryptowallets.example', }}
         theme={lightTheme({
           overlayBlur: 'small',
-          accentColor: 'rgb(100 116 139)',
+          accentColor: '#64748b',
           accentColorForeground: 'white',
           borderRadius: 'small',
           fontStack: 'system',
