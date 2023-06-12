@@ -8,6 +8,7 @@ import DateRangeInput from './DateRangeInput'
 import EthInputField from './ETHInputField';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 import { addressesToken } from '../helper/Addresses';
+import { importantDates } from '../helper/ImportantDates';
 import { methods } from '../helper/objects'
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 import CalculatedStats from './calculatedStats';
@@ -90,10 +91,18 @@ export default function Calculator(props) {
   }
 
   const handleDateRangeChange = (newValue) => {
-    const today = new Date();
-    if (Date.parse(newValue.endDate) > Date.parse(today)) {
-      newValue.endDate = today;
+
+    if (Date.parse(newValue.endDate) > Date.parse(importantDates.today)) {
+      newValue.endDate = importantDates.today;
     }
+    if (!newValue.startDate) {
+      newValue.startDate = importantDates.rocketPoolStartDate;
+    }
+    if (!newValue.endDate) {
+      newValue.endDate = importantDates.today;
+    }
+
+    console.log("rocket pool start date: ", importantDates.rocketPoolStartDate, importantDates.rocketPoolStartDate -1)
 
     const currentDate = new Date();
 
@@ -117,8 +126,7 @@ export default function Calculator(props) {
   }
 
   function calcRETHToSkimFromETH(rETH, ETHToRemain) {
-    const today = new Date();
-    let ratio = findRETHRatioByDate(today, props.rETHRatios);
+    let ratio = findRETHRatioByDate(importantDates.today, props.rETHRatios);
     let rETHToSkim = rETH * ratio.rate / 1e18 - ETHToRemain
     return rETHToSkim;
   }
