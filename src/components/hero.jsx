@@ -18,25 +18,25 @@ const rocketScanRETHURL = 'https://rocketscan.io/api/mainnet/reth';
 export default function Example() {
   const [rETHRatios, setRETHRatios] = useState(0);
 
-  console.log("rETHRatios state: ", rETHRatios)
-  if (rETHRatios == 0) {
-    setRETHRatios(rETHRatiosHardcoded);
-  }
+  // console.log("rETHRatios state: ", rETHRatios)
+  // if (rETHRatios == 0) {
+  //   setRETHRatios(rETHRatiosHardcoded);
+  // }
   console.log("rETHRatios state: ", rETHRatios)
 
-  // if (rETHRatios == 0) {
-  //   fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
-  //     .then(response => {
-  //       if (response.ok) return response.json()
-  //       throw new Error('Network response was not ok.')
-  //     })
-  //     .then(data => {
-  //       let rETHRatiosVariable = JSON.parse(data.contents).ratios;
-  //       // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
-  //       setRETHRatios(rETHRatiosVariable);
-  //     }
-  //     );
-  // }
+  if (rETHRatios == 0) {
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
+      .then(response => {
+        if (response.ok) return response.json()
+        throw new Error('Network response was not ok.')
+      })
+      .then(data => {
+        let rETHRatiosVariable = JSON.parse(data.contents).ratios;
+        // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
+        setRETHRatios(rETHRatiosVariable);
+      }
+      );
+  }
 
   return (
     <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
