@@ -17,10 +17,9 @@ export default function Calculator(props) {
 
   const { chain } = useNetwork();
   let chainName = 'Ethereum'
-  if (chain?.chainName == "Goerli") {
+  if (chain?.name == "Goerli") {
     chainName = chain.name
   }
-  // console.log("addresses: ", addressesToken, " chain: ", chain, " chainName: ", chainName)
   const rETH_CONTRACT_ADDRESS = addressesToken[chainName].rETH;
 
   const [dateRange, setDateRange] = useState({

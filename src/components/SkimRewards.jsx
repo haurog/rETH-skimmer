@@ -13,7 +13,7 @@ export default function SkimRewards(props) {
 
   const { chain } = useNetwork();
   let chainName = 'Ethereum'
-  if (chain) {
+  if (chain?.name == "Goerli") {
     chainName = chain.name
   }
   const rETH_CONTRACT_ADDRESS = addressesToken[chainName].rETH;
