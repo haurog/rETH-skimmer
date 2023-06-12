@@ -84,8 +84,11 @@ export default function Calculator(props) {
     if (methodChosen) {
       if (event == methods[0]) {
         preSetRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
+        setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
+
       } else if (event == methods[1]) {
         preSetRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
+        setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(importantDates.today, props.rETHRatios)));
       }
     }
   }
