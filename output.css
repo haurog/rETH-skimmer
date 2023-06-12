@@ -1495,9 +1495,9 @@ select {
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
-.bg-indigo-600 {
+.bg-slate-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-t {
@@ -1967,9 +1967,9 @@ select {
   --tw-ring-inset: inset;
 }
 
-.ring-indigo-600 {
+.ring-slate-500 {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(100 116 139 / var(--tw-ring-opacity));
 }
 
 .ring-gray-300 {
@@ -2108,9 +2108,9 @@ select {
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-indigo-500:hover {
+.hover\:bg-slate-700:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 
 .hover\:text-blue-700:hover {
@@ -2595,6 +2595,11 @@ select {
   --tw-ring-color: rgb(244 63 94 / 0.5);
 }
 
+.focus\:ring-slate-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(100 116 139 / var(--tw-ring-opacity));
+}
+
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
 }
@@ -2603,9 +2608,9 @@ select {
   cursor: not-allowed;
 }
 
-.disabled\:bg-gray-300:disabled {
+.disabled\:bg-gray-200:disabled {
   --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .disabled\:opacity-40:disabled {
