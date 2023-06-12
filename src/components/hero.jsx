@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import Calculator from './calculator.jsx';
 import RETHAPYFooter from './RETHAPYFooter.jsx';
+import ContactFooter from './contactFooter.jsx';
 
 import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
 
@@ -77,6 +78,7 @@ export default function Example() {
         </main>
       </div>
       <RETHAPYFooter rETHRatios={rETHRatios} />
+      <ContactFooter />
     </div>
   )
 }

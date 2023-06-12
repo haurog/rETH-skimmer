@@ -1,0 +1,4 @@
+/*For fontawesome svgs to make them white*/
+.invert-colours{
+    filter: invert(100%);
+  }
