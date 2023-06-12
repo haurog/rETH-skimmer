@@ -6,8 +6,8 @@ import discord from '../img/discord.svg';
 export default function ContactFooter() {
   return (
     <footer className="bg-transparent">
-      <div className="mx-full px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex space-x-6 md:order-2 justify-self-end">
+      <div className="mx-auto max-full px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+        <div className="flex justify-center space-x-6 md:order-2">
           <a href="https://github.com/haurog/rETH-skimmer">
             <img src={github} width="25" height="25" className="invert-colours" />
           </a>
