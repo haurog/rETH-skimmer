@@ -5,13 +5,14 @@ import Example from './components/hero.jsx';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultWallets, connectorsForWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit';
 import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coinbaseWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
 import { mainnet, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+
 
 
 import { Chain } from 'wagmi'
