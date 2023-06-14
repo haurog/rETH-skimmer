@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { Popover } from '@headlessui/react'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
