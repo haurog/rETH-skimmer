@@ -23,14 +23,14 @@ const { chains, provider } = configureChains(
   ]
 );
 
-
+const appName = 'rETH Skimmer'
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
       metaMaskWallet({ chains }),
       injectedWallet({ chains }),
-      coinbaseWallet({ chains }),
+      coinbaseWallet({ chains, appName }),
       walletConnectWallet({ chains }),
       rainbowWallet({ chains }),
       ledgerWallet({ chains }),
