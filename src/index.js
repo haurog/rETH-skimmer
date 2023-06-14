@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import { getDefaultWallets, connectorsForWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit';
-import { metaMaskWallet, rainbowWallet, walletConnectWallet, coinbaseWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
+import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coinbaseWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
 import { mainnet, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
@@ -59,6 +59,7 @@ const connectors = connectorsForWallets([
     groupName: 'Recommended',
     wallets: [
       metaMaskWallet({ chains }),
+      injectedWallet({ chains }),
       coinbaseWallet({ chains }),
       walletConnectWallet({ chains }),
       rainbowWallet({ chains }),
