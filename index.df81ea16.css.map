@@ -1,1 +1,0 @@
-{"mappings":"ACCA","sources":["index.df81ea16.css","src/index.css"],"sourcesContent":[".invert-colours {\n  filter: invert();\n}\n\n/*# sourceMappingURL=index.df81ea16.css.map */\n","/*For fontawesome svgs to make them white*/\n.invert-colours{\n    filter: invert(100%);\n  }"],"names":[],"version":3,"file":"index.df81ea16.css.map"}
