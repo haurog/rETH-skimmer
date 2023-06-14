@@ -16,23 +16,6 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import { Chain } from 'wagmi'
 
-const local_fork = {
-  id: 1337,
-  name: 'Local_mainnet_Fork',
-  network: 'ganache',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Ether',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    default: { http: ['127.0.0.1:8545'] },
-  },
-  blockExplorers: {},
-  contracts: {},
-}
-
-
 const { chains, provider } = configureChains(
   [mainnet, goerli],
   [
