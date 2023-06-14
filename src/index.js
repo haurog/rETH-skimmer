@@ -6,16 +6,15 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, connectorsForWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit';
+import { getDefaultWallets, connectorsForWallets, RainbowKitProvider, lightTheme, Wallet } from '@rainbow-me/rainbowkit';
 import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coinbaseWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
 import { mainnet, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-
-
-
 import { Chain } from 'wagmi'
+
+import browserWalletIcon from './img/wallet-solid_orange.svg';
 
 const { chains, provider } = configureChains(
   [mainnet, goerli],
@@ -24,15 +23,28 @@ const { chains, provider } = configureChains(
   ]
 );
 
+const { wallets } = getDefaultWallets({
+  appName: 'foo',
+  chains
+})
+
+const browserWallet = wallets[0].wallets.find(({ id }) => id === 'injected')
+
+browserWallet.iconUrl = browserWalletIcon
+browserWallet.name = 'Browser Wallet'
+
 const appName = 'rETH Skimmer'
+
+
+console.log("browserwallet: ", browserWallet, " Wallets:", wallets)
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
+      browserWallet,
       metaMaskWallet({ chains }),
-      injectedWallet({ chains }),
-      coinbaseWallet({ chains, appName }),
       walletConnectWallet({ chains }),
+      coinbaseWallet({ chains, appName }),
       rainbowWallet({ chains }),
       ledgerWallet({ chains }),
     ],
