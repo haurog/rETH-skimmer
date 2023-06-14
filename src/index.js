@@ -34,21 +34,8 @@ const local_fork = {
 
 
 const { chains, provider } = configureChains(
-  // [mainnet, goerli, local_fork],  // for local testing only
   [mainnet, goerli],
   [
-    // jsonRpcProvider({
-    //   rpc: () => ({
-    //     http: `https://eth-rpc.gateway.pokt.network`,
-    //   }),
-    // }),
-    // publicProvider()
-    // ,
-    // jsonRpcProvider({
-    //   rpc: () => ({
-    //     http: `https://rpc.ankr.com/eth_goerli`,
-    //   }),
-    // }),
     publicProvider()
   ]
 );
