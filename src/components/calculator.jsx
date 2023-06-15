@@ -30,6 +30,7 @@ export default function Calculator(props) {
   const [rateIncrease, setRateIncrease] = useState(0);
   const [APY, setAPY] = useState(0);
   const [rETH, setRETH] = useState(0)  // rETH total under the users control
+  const [rETHInWallet, setRETHInWallet] = useState(0)  // rETH total under the users control
   const [equivalentETH, setEquivalentETH] = useState(0)  // Equivalent ETH calculate from rETH
   const [ETHToRemain, setETHToRemain] = useState(0)  // ETH to remain after skimming
   const [rETHtoSkim, setRETHToSkim] = useState(0)
@@ -47,6 +48,7 @@ export default function Calculator(props) {
     onSuccess(data) {
       let rETHAmount = ethers.utils.formatEther(data.toString());
       // console.log('rETH amount: ', rETHAmount);
+      setRETHInWallet(rETHAmount);
       setRETH(rETHAmount);
       preSetRETHToSkim(calcRETHToSkimFromDate(rETHAmount, rateIncrease));
       setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
@@ -188,7 +190,7 @@ export default function Calculator(props) {
               <h2>rETH to skim: {rETHtoSkim.toPrecision(3)} rETH</h2>
             </div> */}
             <CalculatedStats calculatedStats={calculatedStats} />
-            <SkimRewards rETHValue={rETHtoSkim} />
+            <SkimRewards rETHtoSkim={rETHtoSkim} rETHInWallet={rETHInWallet} />
           </div>
         </div>
       </div>
