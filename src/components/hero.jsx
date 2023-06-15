@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Calculator from './calculator.jsx';
 import RETHAPYFooter from './RETHAPYFooter.jsx';
 import ContactFooter from './contactFooter.jsx';
+import ExplanationText from './explanationText.jsx'
 
 import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
 
@@ -41,7 +42,7 @@ export default function Example() {
   return (
     <div className="relative overflow-hidden bg-contain bg-gradient-to-t from-slate-500 to-orange-500 min-h-screen">
       <div className="hidden sm:absolute sm:inset-0 sm:block" aria-hidden="true">
-        <img className="absolute bottom-0 right-0 -translate-x-4 md:-translate-x-1/4 -translate-y-28 lg:-translate-y-10 2xl:-translate-y-16 transform text-emerald-700 top-0 mt-[580px] lg:mt-56 lg:mb-0 w-20 md:w-32 2xl:w-48" src={logo} alt="Rocket Pool Logo" />
+        <img className="absolute bottom-0 right-0 -translate-x-4 md:-translate-x-1/4 translate-y-36 lg:-translate-y-10 2xl:-translate-y-16 transform text-emerald-700 top-0 mt-[580px] lg:mt-56 lg:mb-0 w-20 md:w-32 2xl:w-48" src={logo} alt="Rocket Pool Logo" />
       </div>
       <div className="relative pt-6 pb-16 sm:pb-12">
         <Popover>
@@ -58,19 +59,7 @@ export default function Example() {
         <main className="mt-24">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12">
-              <div className="px-4 sm:px-6 sm:text-center md:mx-auto md:max-w-2xl lg:col-span-4 xl:col-span-5 2xl:col-span-6 lg:flex lg:items-center lg:text-left">
-                <div>
-                  <h1 className="mt-4 text-4xl font-bold text-gray-100 tracking-tight sm:text-5xl md:text-5xl">
-                    Skim your rETH rewards
-                  </h1>
-                  <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Calculate rETH gains relative to ETH for a given time period.
-                  </p>
-                  <p className="mt-3 text-base text-gray-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    The excess rETH can then be exchanged to ETH using the rocket pool deposit contract.
-                  </p>
-                </div>
-              </div>
+              <ExplanationText />
               <Calculator rETHRatios={rETHRatios} />
             </div>
           </div>
