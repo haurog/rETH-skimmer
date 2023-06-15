@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { useAccount, useContractRead, useNetwork} from 'wagmi';
+import { useAccount, useContractRead, useNetwork } from 'wagmi';
 import { ethers } from 'ethers';
 
 import SkimRewards from './SkimRewards';
@@ -54,7 +54,7 @@ export default function Calculator(props) {
   })
 
 
-  function preSetRETHToSkim(rETHToSkim){
+  function preSetRETHToSkim(rETHToSkim) {
     setRETHToSkim(rETHToSkim >= 0 ? rETHToSkim : 0);
   }
 
@@ -104,8 +104,6 @@ export default function Calculator(props) {
       newValue.endDate = importantDates.today;
     }
 
-    console.log("rocket pool start date: ", importantDates.rocketPoolStartDate, importantDates.rocketPoolStartDate -1)
-
     const currentDate = new Date();
 
     const startDate = new Date(newValue.startDate);
@@ -129,7 +127,8 @@ export default function Calculator(props) {
 
   function calcRETHToSkimFromETH(rETH, ETHToRemain) {
     let ratio = findRETHRatioByDate(importantDates.today, props.rETHRatios);
-    let rETHToSkim = rETH * ratio.rate / 1e18 - ETHToRemain
+    let exchangeRate = ratio.rate / 1e18; // rETH/ETH exchange rate
+    let rETHToSkim = (rETH * exchangeRate - ETHToRemain) / exchangeRate;
     return rETHToSkim;
   }
 
@@ -160,7 +159,7 @@ export default function Calculator(props) {
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
-        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange}/>
+        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange} />
         <div className="mt-6">
           <div className="space-y-6">
             <div>
