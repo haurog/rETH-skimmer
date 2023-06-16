@@ -129,13 +129,13 @@ export default function Calculator(props) {
 
   function calcRETHToSkimFromETH(rETH, ETHToRemain) {
     let ratio = findRETHRatioByDate(importantDates.today, props.rETHRatios);
-    let exchangeRate = ratio.rate / 1e18; // rETH/ETH exchange rate
+    let exchangeRate = ethers.utils.formatEther(ratio.rate); // rETH/ETH exchange rate
     let rETHToSkim = (rETH * exchangeRate - ETHToRemain) / exchangeRate;
     return rETHToSkim;
   }
 
   function calcEquivalentETH(rETH, ratio) {
-    return ratio.rate * rETH / 1e18;
+    return ethers.utils.formatEther(ratio.rate) * rETH;
   }
 
   let inputField;
