@@ -82,14 +82,16 @@ export default function Calculator(props) {
 
   const handleMethodsChange = event => {
     setMethodChosen(event);
-    if (methodChosen) {
-      if (event == methods[0]) {
-        preSetRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
-        setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
+    if (props.rETHRatios) {
+      if (methodChosen) {
+        if (event == methods[0]) {
+          preSetRETHToSkim(calcRETHToSkimFromDate(rETH, rateIncrease));
+          setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
 
-      } else if (event == methods[1]) {
-        preSetRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
-        setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(importantDates.today, props.rETHRatios)));
+        } else if (event == methods[1]) {
+          preSetRETHToSkim(calcRETHToSkimFromETH(rETH, ETHToRemain));
+          setEquivalentETH(calcEquivalentETH(rETH, findRETHRatioByDate(importantDates.today, props.rETHRatios)));
+        }
       }
     }
   }
@@ -140,10 +142,11 @@ export default function Calculator(props) {
 
   let inputField;
   if (methodChosen) {
+    let inputDisabled = props.rETHRatios ? false : true;
     if (methodChosen == methods[0]) {
-      inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} />
+      inputField = <DateRangeInput dateRange={dateRange} handleDateRangeChange={handleDateRangeChange} inputDisabled={inputDisabled} />
     } else if (methodChosen == methods[1]) {
-      inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange} />
+      inputField = <EthInputField ETHToRemain={ETHToRemain} handleETHToRemainChange={handleETHToRemainChange} inputDisabled={inputDisabled} />
     }
   }
   // console.log("Input Field: ", inputField, methodChosen);
@@ -180,15 +183,6 @@ export default function Calculator(props) {
               />
             </div>
             {inputField}
-            {/* <div>
-              <h2>equivalent ETH: {equivalentETH.toPrecision(3)} rETH</h2>
-            </div>
-            <div>
-              <h2>Increase: {rateIncrease.toPrecision(3)} % (&#8781; {APY.toPrecision(3)} % APY)</h2>
-            </div>
-            <div>
-              <h2>rETH to skim: {rETHtoSkim.toPrecision(3)} rETH</h2>
-            </div> */}
             <CalculatedStats calculatedStats={calculatedStats} />
             <SkimRewards rETHtoSkim={rETHtoSkim} rETHInWallet={rETHInWallet} />
           </div>
