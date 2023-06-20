@@ -109,8 +109,7 @@ export default function SkimRewards(props) {
   if (props.rETHtoSkim <= 0) {
     skimButtonDisabled = true;
     tooltipText = 'Skim amount is set to zero.'
-  } else if (props.rETHInWallet < props.rETHtoSkim)
-  {
+  } else if (props.rETHInWallet < props.rETHtoSkim) {
     console.log("in else if")
     skimButtonDisabled = true;
     tooltipText = 'Not enough rETH in wallet to skim the calculated amount.'
@@ -125,15 +124,18 @@ export default function SkimRewards(props) {
         Approve rETH {props.rETHtoSkim > 0 ? '(' + props.rETHtoSkim.toPrecision(3) + ' rETH)' : ''}
       </button> */}
 
-      <button id="skim-button"
-        onClick={sendRETH.write}
-        className="flex w-full justify-center rounded-md border border-transparent bg-slate-500 disabled:bg-gray-200 py-3 px-4 font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
-        disabled={skimButtonDisabled}
+      <div
         data-tooltip-id="skim-button-tooltip"
         data-tooltip-content={tooltipText}
         data-tooltip-place="bottom">
-        Skim rETH rewards {props.rETHtoSkim > 0 ? '(' + props.rETHtoSkim.toPrecision(3) + ' rETH)' : ''}
-      </button>
+        <button id="skim-button"
+          onClick={sendRETH.write}
+          className="flex w-full justify-center rounded-md border border-transparent bg-slate-500 disabled:bg-gray-200 py-3 px-4 font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+          disabled={skimButtonDisabled}
+        >
+          Skim rETH rewards {props.rETHtoSkim > 0 ? '(' + props.rETHtoSkim.toPrecision(3) + ' rETH)' : ''}
+        </button>
+      </div>
       <Tooltip id="skim-button-tooltip" />
     </div>
 
