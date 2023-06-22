@@ -6,6 +6,7 @@ import SkimRewards from './SkimRewards';
 import DateETHToggler from './dateETHToggler'
 import DateRangeInput from './DateRangeInput'
 import EthInputField from './ETHInputField';
+import TransactionsModal from './transactionsModal';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 import { addressesToken } from '../helper/Addresses';
 import { importantDates } from '../helper/ImportantDates';
@@ -182,6 +183,7 @@ export default function Calculator(props) {
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm py-2.5"
               />
             </div>
+            <TransactionsModal open={true} />
             {inputField}
             <CalculatedStats calculatedStats={calculatedStats} />
             <SkimRewards rETHtoSkim={rETHtoSkim} rETHInWallet={rETHInWallet} />
