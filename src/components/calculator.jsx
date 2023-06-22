@@ -165,6 +165,12 @@ export default function Calculator(props) {
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
+        <button id="showTransactionModal-button"
+          onClick={''}
+          className="flex w-full justify-center rounded-md border border-transparent bg-slate-500 disabled:bg-gray-200 py-3 px-4 font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+        >
+          See Previous transactions
+        </button>
         <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange} />
         <div className="mt-6">
           <div className="space-y-6">
