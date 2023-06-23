@@ -5,8 +5,6 @@ import TransactionsTable from './transactionsTable'
 export default function TransactionsModal() {
   const [open, setOpen] = useState(false)
 
-  console.log("modal state: ", open)
-
   return (
     <div>
       <div>
@@ -51,6 +49,10 @@ export default function TransactionsModal() {
                        </Dialog.Title>
                        <div className="mt-2">
                          <TransactionsTable />
+                       </div>
+                       <hr />
+                       <div className="mt-2 text-sm text-gray-400">
+                         Previous rETH skim transactions show up here. These transactions are stored locally in your browser. If you use a different browser, or delete the local browser storage they are not showing up anymore.
                        </div>
                      </div>
                    </div>

@@ -1,17 +1,18 @@
 import React from 'react';
 
-import { usePrepareContractWrite, useContractWrite, useTransaction, useWaitForTransaction, useNetwork } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite, useTransaction, useWaitForTransaction, useAccount, useNetwork } from 'wagmi';
 import { ethers } from 'ethers';
 
 import { ToastContainer, toast } from 'react-toastify'
 import { Tooltip } from 'react-tooltip'
 
 import { addressesToken } from '../helper/Addresses';
+import { addTransaction } from '../helper/PreviousTransactions';
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 
 
 export default function SkimRewards(props) {
-
+  const { address } = useAccount()
   const { chain } = useNetwork();
   let chainName = 'Ethereum'
   if (chain?.name == "Goerli") {
@@ -23,7 +24,7 @@ export default function SkimRewards(props) {
   //   address: rETH_CONTRACT_ADDRESS,
   //   abi: rETH_CONTRACT_ABI,
   //   functionName: 'approve',
-  //   args: [rETH_CONTRACT_ADDRESS, ethers.utils.parseEther(props.rETHtoSkim.toFixed(18).toString())],
+  //   args: [rETH_CONTRACT_ADDRESS, ethers.utils.parseEther(props.rETHToSkim.toFixed(18).toString())],
   //   // overrides: { value: ethers.utils.parseEther(tokenAmount.toFixed(18).toString()), },
   // })
 
@@ -33,7 +34,7 @@ export default function SkimRewards(props) {
     address: rETH_CONTRACT_ADDRESS,
     abi: rETH_CONTRACT_ABI,
     functionName: 'burn',
-    args: [ethers.utils.parseEther(props.rETHtoSkim.toFixed(18).toString())],
+    args: [ethers.utils.parseEther(props.rETHToSkim.toFixed(18).toString())],
   })
 
   const sendRETH = useContractWrite(config)
@@ -96,6 +97,7 @@ export default function SkimRewards(props) {
         });
       };
       notify();
+      addTransaction(address, chainName, props.transactionEntry)
     },
     onError(error) {
       console.log('Error', error)
@@ -106,10 +108,10 @@ export default function SkimRewards(props) {
 
   let skimButtonDisabled = false;
   let tooltipText = '';
-  if (props.rETHtoSkim <= 0) {
+  if (props.rETHToSkim <= 0) {
     skimButtonDisabled = true;
     tooltipText = 'Skim amount is set to zero.'
-  } else if (props.rETHInWallet < props.rETHtoSkim) {
+  } else if (props.rETHInWallet < props.rETHToSkim) {
     console.log("in else if")
     skimButtonDisabled = true;
     tooltipText = 'Not enough rETH in wallet to skim the calculated amount.'
@@ -121,7 +123,7 @@ export default function SkimRewards(props) {
         onClick={approveRETH.write}
         className="flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
       >
-        Approve rETH {props.rETHtoSkim > 0 ? '(' + props.rETHtoSkim.toPrecision(3) + ' rETH)' : ''}
+        Approve rETH {props.rETHToSkim > 0 ? '(' + props.rETHToSkim.toPrecision(3) + ' rETH)' : ''}
       </button> */}
 
       <div
@@ -133,7 +135,7 @@ export default function SkimRewards(props) {
           className="flex w-full justify-center rounded-md border border-transparent bg-slate-500 disabled:bg-gray-200 py-3 px-4 font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
           disabled={skimButtonDisabled}
         >
-          Skim rETH rewards {props.rETHtoSkim > 0 ? '(' + props.rETHtoSkim.toPrecision(3) + ' rETH)' : ''}
+          Skim rETH rewards {props.rETHToSkim > 0 ? '(' + props.rETHToSkim.toPrecision(3) + ' rETH)' : ''}
         </button>
       </div>
       <Tooltip id="skim-button-tooltip" />

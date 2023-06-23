@@ -1,44 +1,14 @@
-import { useAccount, useNetwork } from 'wagmi';
+import { getPreviousTransactions, addTransaction } from "../helper/PreviousTransactions"
 
-const toStoreTransactions1 = [
-    { date: '2023-06-01', skimAmount: '0.0123', dateRange: '2023-05-23 ~ 2023-06-22', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    { date: '2023-06-22', skimAmount: '0.0123', dateRange: '-', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    { date: '2023-06-29', skimAmount: '0.0123', dateRange: '2023-05-23 ~ 2023-06-22', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    // More people...
-  ]
-
-  const toStoreTransactions2 = [
-    { date: '2024-06-01', skimAmount: '0.0245', dateRange: '2023-05-23 ~ 2023-06-22', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    { date: '2024-06-22', skimAmount: '0.0245', dateRange: '-', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    { date: '2024-06-29', skimAmount: '0.0245', dateRange: '2023-05-23 ~ 2023-06-22', rETHRemaining: '0.1', eqETHRemaining: '1.1' },
-    // More people...
-  ]
-
-  export default function TransactionsTable() {
-    const { address} = useAccount()
-    const { chain } = useNetwork()
-    const chainName = chain.name;
-
-    console.log("address: ", address, " chain: ", chainName)
-
-    let transactionsObject = {}
-    transactionsObject['Goerli'] = toStoreTransactions1
-    transactionsObject['Ethereum'] = toStoreTransactions2
-
-    console.log("transactionsObject: ", transactionsObject)
-
-    if (address && chain.name) {
-      localStorage.setItem(address, JSON.stringify(transactionsObject))
-    }
-
-    let transactions = JSON.parse(localStorage.getItem(address))[chainName]
+export default function TransactionsTable() {
+    let transactions = getPreviousTransactions();
 
     return (
       <div className="px-4 sm:px-6 lg:px-8">
         <div className=" sm:items-center">
         </div>
         <div className="mt-8 flow-root">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="-mx-4 -my-2 overflow-x-auto overflow-y-auto max-h-96 sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
               <table className="min-w-full divide-y divide-gray-300">
                 <thead>

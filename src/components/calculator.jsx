@@ -10,6 +10,7 @@ import TransactionsModal from './transactionsModal';
 import { findRETHRatioByDate, calcRateIncrease, calcEquivalentAPY } from '../helper/RETHCalculations'
 import { addressesToken } from '../helper/Addresses';
 import { importantDates } from '../helper/ImportantDates';
+import { createTransactionEntry } from '../helper/PreviousTransactions';
 import { methods } from '../helper/objects'
 import rETH_CONTRACT_ABI from "../ABI/rETH_ABI.json";
 import CalculatedStats from './calculatedStats';
@@ -34,7 +35,7 @@ export default function Calculator(props) {
   const [rETHInWallet, setRETHInWallet] = useState(0)  // rETH total under the users control
   const [equivalentETH, setEquivalentETH] = useState(0)  // Equivalent ETH calculate from rETH
   const [ETHToRemain, setETHToRemain] = useState(0)  // ETH to remain after skimming
-  const [rETHtoSkim, setRETHToSkim] = useState(0)
+  const [rETHToSkim, setRETHToSkim] = useState(0)
 
   const [methodChosen, setMethodChosen] = useState() // to set calculation method (date, ETH) by child component
 
@@ -138,7 +139,11 @@ export default function Calculator(props) {
   }
 
   function calcEquivalentETH(rETH, ratio) {
-    return ethers.utils.formatEther(ratio.rate) * rETH;
+    let equivalentETH = 0;
+    if (ratio?.rate) {
+      equivalentETH = ethers.utils.formatEther(ratio.rate) * rETH;
+    }
+    return equivalentETH;
   }
 
   let inputField;
@@ -158,9 +163,14 @@ export default function Calculator(props) {
   if (methodChosen && methodChosen == methods[0]) {
     calculatedStats.push({ id: 2, name: 'Increase', value: rateIncrease, unit: '%', additional: '(≍ ' + APY.toPrecision(3) + ' % APY)' })
   }
-  calculatedStats.push({ id: 3, name: 'rETH to skim', value: rETHtoSkim, unit: 'rETH' })
+  calculatedStats.push({ id: 3, name: 'rETH to skim', value: rETHToSkim, unit: 'rETH' })
 
 
+  let dateRangeForTransaction = dateRange;
+  if (methodChosen == methods[1]) {
+    dateRangeForTransaction = '-'
+  }
+  let transactionEntry = createTransactionEntry(dateRangeForTransaction, rETHToSkim, rETH, calcEquivalentETH(rETH - rETHToSkim, findRETHRatioByDate(dateRange.endDate, props.rETHRatios)));
 
   return (<div className="mt-16 sm:mt-24 lg:col-span-6 lg:mt-0">
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
@@ -186,7 +196,7 @@ export default function Calculator(props) {
             </div>
             {inputField}
             <CalculatedStats calculatedStats={calculatedStats} />
-            <SkimRewards rETHtoSkim={rETHtoSkim} rETHInWallet={rETHInWallet} />
+            <SkimRewards rETHToSkim={rETHToSkim} rETHInWallet={rETHInWallet} transactionEntry={transactionEntry}/>
           </div>
         </div>
       </div>
