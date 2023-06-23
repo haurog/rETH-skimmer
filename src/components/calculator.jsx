@@ -176,7 +176,9 @@ export default function Calculator(props) {
     <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg">
       <div className="px-4 py-8 sm:px-10">
         <TransactionsModal />
-        <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange} />
+        <div className="mt-6">
+          <DateETHToggler methodChosen={methodChosen} setMethodChosen={setMethodChosen} handleMethodsChange={handleMethodsChange} />
+        </div>
         <div className="mt-6">
           <div className="space-y-6">
             <div>
@@ -196,7 +198,7 @@ export default function Calculator(props) {
             </div>
             {inputField}
             <CalculatedStats calculatedStats={calculatedStats} />
-            <SkimRewards rETHToSkim={rETHToSkim} rETHInWallet={rETHInWallet} transactionEntry={transactionEntry}/>
+            <SkimRewards rETHToSkim={rETHToSkim} rETHInWallet={rETHInWallet} transactionEntry={transactionEntry} />
           </div>
         </div>
       </div>
