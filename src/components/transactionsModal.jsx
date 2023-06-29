@@ -12,7 +12,7 @@ export default function TransactionsModal() {
           onClick={() => setOpen(true)}
           className="flex w-full justify-center rounded-md border border-transparent bg-slate-500 disabled:bg-gray-200 py-3 px-4 font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
         >
-          See Previous Transactions
+          Show Previous Transactions
         </button>
       </div>
      <div>
