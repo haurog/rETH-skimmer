@@ -95,6 +95,6 @@ export function createTransactionEntry(dateRange, rETHToSkim, rETHInWallet, eqET
     rETHRemaining: rETHRemaining.toPrecision(4),
     eqETHRemaining: eqETHRemaining.toPrecision(4)
   }
-  console.log("Transaction Entry; ", transactionToAdd)
+  // console.log("Transaction Entry; ", transactionToAdd)
   return transactionToAdd
 }
