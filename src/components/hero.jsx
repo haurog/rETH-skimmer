@@ -32,7 +32,6 @@ export default function Example() {
         throw new Error('Network response was not ok.')
       })
       .then(data => {
-        console.log("rETHRatiosVariable before parsing: ", data)
         let rETHRatiosVariable = data;
         console.log("rETHRatiosVariable: ", rETHRatiosVariable)
         setRETHRatios(rETHRatiosVariable);
