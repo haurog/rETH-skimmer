@@ -13,7 +13,7 @@ import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
 
 import logo from './../img/rocket_modified_plain.svg';
 
-const rocketScanRETHURL = 'https://rocketscan.io/api/mainnet/reth';
+const rETHExchangeRateURL = 'https://reth-exchange-rates.shuttleapp.rs/rETH';
 
 
 export default function Example() {
@@ -26,14 +26,15 @@ export default function Example() {
   console.log("rETHRatios state: ", rETHRatios)
 
   if (rETHRatios == 0) {
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rocketScanRETHURL)}`)
+    fetch(rETHExchangeRateURL)
       .then(response => {
         if (response.ok) return response.json()
         throw new Error('Network response was not ok.')
       })
       .then(data => {
-        let rETHRatiosVariable = JSON.parse(data.contents).ratios;
-        // console.log("rETHRatiosVariable: ", rETHRatiosVariable)
+        console.log("rETHRatiosVariable before parsing: ", data)
+        let rETHRatiosVariable = data;
+        console.log("rETHRatiosVariable: ", rETHRatiosVariable)
         setRETHRatios(rETHRatiosVariable);
       }
       );
