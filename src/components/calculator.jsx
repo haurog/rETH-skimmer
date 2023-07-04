@@ -113,9 +113,14 @@ export default function Calculator(props) {
     const currentDate = new Date();
 
     const startDate = new Date(newValue.startDate);
-    newValue.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+    newValue.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0);  // set to start of the day at that date
+    if (newValue.startDate < importantDates.rocketPoolStartDate) {
+      newValue.startDate = importantDates.rocketPoolStartDate;
+    }
+
     const endDate = new Date(newValue.endDate);
-    newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+    newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999); // set to the end of day on that date
+    console.log("start: ", newValue.startDate, " end: ", newValue.endDate)
     setDateRange(newValue);
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);

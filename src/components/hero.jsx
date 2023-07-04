@@ -23,7 +23,6 @@ export default function Example() {
   // if (rETHRatios == 0) {
   //   setRETHRatios(rETHRatiosHardcoded);
   // }
-  console.log("rETHRatios state: ", rETHRatios)
 
   if (rETHRatios == 0) {
     fetch(rETHExchangeRateURL)
