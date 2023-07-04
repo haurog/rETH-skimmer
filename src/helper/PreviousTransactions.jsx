@@ -42,7 +42,7 @@ function storeDummyTransactions() {
 export function getPreviousTransactions() {
   const { address } = useAccount()
   const { chain } = useNetwork()
-  const chainName = chain.name;
+  const chainName = chain ? chain.name : 'Ethereum';
   // storeDummyTransactions()
   let transactionsWithChains = JSON.parse(localStorage.getItem(address))
   if (!transactionsWithChains) {
