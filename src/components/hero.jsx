@@ -9,7 +9,7 @@ import RETHAPYFooter from './RETHAPYFooter.jsx';
 import ContactFooter from './contactFooter.jsx';
 import ExplanationText from './explanationText.jsx'
 
-import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
+// import { rETHRatiosHardcoded } from './../helper/rETHRatios.js'
 
 import logo from './../img/rocket_modified_plain.svg';
 
