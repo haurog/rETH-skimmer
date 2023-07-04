@@ -120,7 +120,7 @@ export default function Calculator(props) {
 
     const endDate = new Date(newValue.endDate);
     newValue.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999); // set to the end of day on that date
-    console.log("start: ", newValue.startDate, " end: ", newValue.endDate)
+    // console.log("start: ", newValue.startDate, " end: ", newValue.endDate)
     setDateRange(newValue);
 
     let startRatio = findRETHRatioByDate(newValue.startDate, props.rETHRatios);
