@@ -6,8 +6,9 @@ For rETH holders it is a bit more difficult as rETH does not rebase and therefor
 
 This website calculates the rETH value increase relative to ETH for a given period and directly exchanges the excess rETH to ETH using the deposit contract.
 
-
 The website is deployed to https://reth-skimmer.haurog.xyz
+
+![image](https://github.com/haurog/rETH-skimmer/assets/36535774/3e882a08-b070-4d69-a748-22840d555add)
 
 
 ## Develop
